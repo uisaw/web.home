@@ -1,0 +1,68 @@
+* {margin:0px; padding:0px;}
+a {color:#000;}
+blockquote,body,button,code,dd,div,dl,dt,fieldset,form,h1,h2,h3,h4,h5,h6,input,legend,li,ol,p,pre,select,td,textarea,th,ul {margin:0; padding:0;}
+dl,li,menu,ol,ul {list-style:none;}
+address, caption, cite, code, dfn, em, var {font-style:normal; font-weight:400;}
+.page {width:100%;}
+.menu {width:96%; position:absolute; top:50%; left:2%; margin-top:-20vh;}
+.menu > .item {width:32%; margin:0; box-sizing:border-box; border:1px #cecece solid; text-align:center; display:inline-block; font-size:18px; font-weight:bold; background-color:#222; color:#fff; padding:5vh 0px; cursor:pointer;}
+.menu > .item > div {font-size:48px;}
+.menu > .item:hover {color:yellow;}
+
+.none {display:none !important;}
+.green {color:green;}
+
+.smenu {width:96%; position:absolute; top:50%; left:2%; margin-top:-20vh;}
+.smenu > .item {width:100%; margin:0; box-sizing:border-box; border:1px #cecece solid; text-align:center; display:block; font-size:18px; font-weight:bold; background-color:#222; color:#fff;}
+.smenu > .item > .tit {font-size:24px; border-bottom:1px #fff solid; padding:2vh 0px; color:yellow; position:relative;}
+.smenu > .item > .tit > .back {position:absolute; left:2vh; top:2vh; color:#fff; cursor:pointer;}
+.smenu > .item > .tit > .back:hover {color:yellow;}
+.smenu > .item > .det {padding:2vh 0px; min-height:112px; box-sizing:border-box; position:relative; display:block;}
+.smenu > .item > .det > .link,.smenu > .item > .det > .down {display:block; color:#fff; text-decoration:none;}
+.smenu > .item > .det > .link:hover,.smenu > .item > .det > .down:hover {color:#00d10a;}
+.smenu > .item > .det > .page {position:absolute; top:0px; left:0px; width:100%; background-color:#fff; height:100%;}
+.pos {width:100% !important; position:relative !important; top:0 !important; left:0 !important; margin-top:0px !important;}
+.pos > .active {border:0px !important;}
+.pos > .active > .det {display:none !important;}
+
+.con {width:100%;}
+.con > .txt {width:100%; word-wrap:break-word; word-break:break-all; text-overflow:ellipsis; overflow:hidden;}
+
+
+
+.screen_out{overflow:hidden;position:absolute;width:0;height:0;line-height:0;text-indent:-9999px;}
+.show{display:block;}
+.hide{display:none;}
+.ico_comm {display:block; overflow:hidden; font-size:1px; line-height:0; background:url(//t1.daumcdn.net/localimg/localimages/07/2018/pc/ico_detail_190102.png) no-repeat; background-repeat:no-repeat; text-indent:-9999px;}
+.particular_head {overflow:hidden;}
+.particular_head .tit_subject {float:left; padding:4px 13px 0 0;}
+.cont_timeinfo {width:100%; padding:36px 0px 49px 0px; margin-top:10px; border:1px solid #eaeaea; background:#fff; box-sizing:border-box;}
+.timetablebody_wrap {width:100%;}
+.cont_timeinfo .timeinfo_check {overflow:hidden; float:right; padding-top:7px;}
+.cont_timeinfo .particular_head {margin-bottom:20px;}
+.cont_timeinfo .tab_time {overflow:hidden; float:left;}
+.cont_timeinfo .tab_time li {float:left;}
+.cont_timeinfo .tab_time .link_tab {display:block; height:20px; padding:0 12px 0 17px; line-height:18px; text-decoration:none;}
+.cont_timeinfo .tab_time .ico_time {float:left; width:13px; height:13px; margin:5px 0 0 -16px; background-position:-210px -30px;}
+.cont_timeinfo .tab_time .on .ico_time {background-position:-230px -30px;}
+.cont_timeinfo .check_express {overflow:hidden; float:left; height:20px;}
+.cont_timeinfo .check_express .bg_bar {float:left; height:12px; margin:5px 16px 0 0;}
+.cont_findway .view_map,.cont_timeinfo .check_express .choice_mapdetail {float:left;}
+.cont_timeinfo .check_express .choice_mapdetail .lab_agree {padding-left:18px; line-height:18px; cursor:pointer;}
+.cont_timeinfo .check_express .choice_mapdetail .inp_choice {top:5px; width:14px; height:14px;}
+.cont_timeinfo .check_express .choice_mapdetail .ico_choice {top:5px; width:14px; height:14px; background-position:-200px -50px;}
+.cont_timeinfo .check_express .choice_mapdetail.express_checked .ico_choice {background-position:-220px -50px;}
+.cont_timeinfo .train_direction {height:51px; border-top:1px solid #d8d8d8; border-bottom:1px solid #d8d8d8; background:#f9f9f9;}
+.cont_timeinfo .txt_direct {float:left; width:50%; height:33px; padding:16px 15px 0; font-weight:400; line-height:18px; text-align:center; box-sizing:border-box;}
+.cont_timeinfo .direction_time {border-bottom:1px solid #d8d8d8;}
+.cont_timeinfo .txt_notrain {padding-top:52px; color:#888; line-height:21px; text-align:center;}
+.cont_timeinfo .desc_time {position:relative; overflow:hidden; border-bottom:1px solid #eee;}
+.cont_timeinfo .desc_time:after {display:block; position:absolute; top:0; left:50%; width:1px; height:100%; margin-left:-1px; background:#d8d8d8; content:"";}
+.cont_timeinfo .list_time {float:left; width:50%; *width:48.6%; padding:8px 0 22px;}
+.cont_timeinfo .list_time li {overflow:hidden; line-height:18px; padding:14px 20px 0 40px;}
+.cont_timeinfo .time_left li {padding-left:20px;}
+.cont_timeinfo .num_time {float:left; padding-right:11px; font-family:Arial,sans-serif; font-size:14px;}
+.cont_timeinfo .txt_way {float:left; padding-right:6px; line-height:16px; color:#444; font-size:14px;}
+.cont_timeinfo .txt_express {float:left; line-height:15px; color:#fa5309;}
+.cont_timeinfo .txt_itx {font-family:Arial,sans-serif; font-size:14px; color:#fa5309;}
+.cont_timeinfo .tit_hour {position:absolute; top:50%; left:50%; z-index:10; width:40px; height:40px; margin:-20px 0 0 -20px; font-family:Arial,sans-serif; font-size:20px; color:#888; line-height:40px; background-position:-160px -190px; text-indent:0; text-align:center;}
