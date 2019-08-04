@@ -1,0 +1,769 @@
+MPCPLAYLIST
+1,type,0
+1,label,EBS1
+1,filename,udp://239.192.42.1:49220
+2,type,0
+2,label,EBS2
+2,filename,udp://239.192.42.2:49220
+3,type,0
+3,label,EBS+2
+3,filename,udp://239.192.69.199:49220
+4,type,0
+4,label,KBS1
+4,filename,udp://239.192.150.129:49220
+5,type,0
+5,label,KBS2
+5,filename,udp://239.192.67.99:49220
+6,type,0
+6,label,MBC
+6,filename,udp://239.192.40.26:49220
+7,type,0
+7,label,MBC every1
+7,filename,udp://239.192.50.6:49220
+8,type,0
+8,label,SBS
+8,filename,udp://239.192.67.98:49220
+9,type,0
+9,label,JTBC
+9,filename,udp://239.192.70.228:49220
+10,type,0
+10,label,JTBC2
+10,filename,udp://239.192.66.16:49220
+11,type,0
+11,label,JTBC3
+11,filename,udp://239.192.69.7:49220
+12,type,0
+12,label,JTBC4
+12,filename,udp://239.192.69.171:49220
+13,type,0
+13,label,tvN
+13,filename,udp://239.192.53.7:49220
+14,type,0
+14,label,OtvN
+14,filename,udp://239.192.53.10:49220
+15,type,0
+15,label,XtvN
+15,filename,udp://239.192.57.6:49220
+16,type,0
+16,label,[영화] CH CGV
+16,filename,udp://239.192.67.227:49220
+17,type,0
+17,label,[영화] OCN
+17,filename,udp://239.192.67.226:49220
+18,type,0
+18,label,[영화] CINEf
+18,filename,udp://239.192.69.36:49220
+19,type,0
+19,label,[영화] INDIE FILM
+19,filename,udp://239.192.69.168:49220
+20,type,0
+20,label,[영화] SCREEN
+20,filename,udp://239.192.69.35:49220
+21,type,0
+21,label,[영화] SUPER ACTION
+21,filename,udp://239.192.67.228:49220
+22,type,0
+22,label,[영화] THE MOVIE
+22,filename,udp://239.192.69.107:49220
+23,type,0
+23,label,[영화 중국] CELESTIAL MOVIES
+23,filename,udp://239.192.69.14:49220
+24,type,0
+24,label,[애니] ANIBOX
+24,filename,udp://239.192.69.8:49220
+25,type,0
+25,label,[애니] ANIMAX
+25,filename,udp://239.192.69.43:49220
+26,type,0
+26,label,[애니] ANIPLUS
+26,filename,udp://239.192.65.14:49220
+27,type,0
+27,label,[애니] ANIONE
+27,filename,udp://239.192.69.44:49220
+28,type,0
+28,label,[애니] BROVO KIDS
+28,filename,udp://239.192.69.132:49220
+29,type,0
+29,label,[애니] tooniverse
+29,filename,udp://239.192.54.7:49220
+30,type,0
+30,label,[애니] BOOMERANG
+30,filename,udp://239.192.65.12:49220
+31,type,0
+31,label,[애니] JEI 재능 TV
+31,filename,udp://239.192.69.142:49220
+32,type,0
+32,label,[애니] CARTOON NETWORK
+32,filename,udp://239.192.69.73:49220
+33,type,0
+33,label,[애니] Disney CHANNEL
+33,filename,udp://239.192.54.5:49220
+34,type,0
+34,label,[애니] Disney JUNIOR
+34,filename,udp://239.192.54.8:49220
+35,type,0
+35,label,[애니] Dream works
+35,filename,udp://239.192.69.238:49220
+36,type,0
+36,label,[애니] nick
+36,filename,udp://239.192.65.17:49220
+37,type,0
+37,label,[애니] 뽀요TV
+37,filename,udp://239.192.66.7:49220
+38,type,0
+38,label,[음악 콘서트] STINGRAY ICONCERTS
+38,filename,udp://239.192.69.99:49220
+39,type,0
+39,label,[음악 클래식] STINGRAY Classica
+39,filename,udp://239.192.69.100:49220
+40,type,0
+40,label,[음악 클래식독주] STINGRAY CMUSIC
+40,filename,udp://239.192.69.176:49220
+41,type,0
+41,label,[음악 국악 클래식] Arte HD
+41,filename,udp://239.192.65.8:49220
+42,type,0
+42,label,[음악 힙합] BET
+42,filename,udp://239.192.64.13:49220
+43,type,0
+43,label,[게임] OGN
+43,filename,udp://239.192.58.5:49220
+44,type,0
+44,label,[게임] SPO TV GAMES
+44,filename,udp://239.192.69.49:49220
+45,type,0
+45,label,[미국 드라마] AXN
+45,filename,udp://239.192.69.48:49220
+46,type,0
+46,label,[다큐멘터리] DISCOVERY CHANNEL
+46,filename,udp://239.192.69.103:49220
+47,type,0
+47,label,[다큐멘터리] BBC earth
+47,filename,udp://239.192.69.165:49220
+48,type,0
+48,label,[다큐멘터리] DOCUONE
+48,filename,udp://239.192.69.167:49220
+49,type,0
+49,label,[다큐멘터리] NATGEO WILD
+49,filename,udp://239.192.64.8:49220
+50,type,0
+50,label,[다큐멘터리] NATIONAL GEOGRAPHIC
+50,filename,udp://239.192.68.4:49220
+51,type,0
+51,label,[스포츠] KBSN SPORTS
+51,filename,udp://239.192.81.47:49220
+52,type,0
+52,label,[스포츠] IB SPORTS
+52,filename,udp://239.192.57.7:49220
+53,type,0
+53,label,[스포츠] indoor SPORTS
+53,filename,udp://239.192.69.229:49220
+54,type,0
+54,label,[스포츠] SCREEN GOLFZON
+54,filename,udp://239.192.64.17:49220
+55,type,0
+55,label,[스포츠] SKY SPORTS
+55,filename,udp://239.192.49.5:49220
+56,type,0
+56,label,[스포츠] SPO TV
+56,filename,udp://239.192.81.43:49220
+57,type,0
+57,label,[스포츠] SPO TV2
+57,filename,udp://239.192.81.44:49220
+58,type,0
+58,label,[스포츠] STAR SPORTS
+58,filename,udp://239.192.69.166:49220
+59,type,0
+59,label,[스포츠] EUROSPORT
+59,filename,udp://239.192.69.68:49220
+60,type,0
+60,label,[스포츠 당구] Billiards TV
+60,filename,udp://239.192.69.74:49220
+61,type,0
+61,label,[스포츠 UFC] SPO TV+
+61,filename,udp://239.192.69.78:49220
+62,type,0
+62,label,[스포츠 골프] JTBC GOLF
+62,filename,udp://239.192.67.165:49220
+63,type,0
+63,label,[엔터테인먼트 방송] !E
+63,filename,udp://239.192.69.237:49220
+64,type,0
+64,label,[수능] EBS i
+64,filename,udp://239.192.69.198:49220
+65,type,0
+65,label,[영어교육] EBS e
+65,filename,udp://239.192.69.200:49220
+66,type,0
+66,label,[영어교육] JEI ENGLISH TV
+66,filename,udp://239.192.69.138:49220
+67,type,0
+67,label,[영어교육] Play&amp;Learn TV
+67,filename,udp://239.192.69.135:49220
+68,type,0
+68,label,[외국어 교육] EDU TV
+68,filename,udp://239.192.69.144:49220
+69,type,0
+69,label,[유럽 드라마] CH U
+69,filename,udp://239.192.69.141:49220
+70,type,0
+70,label,[음식] Cook TV
+70,filename,udp://239.192.70.8:49220
+71,type,0
+71,label,[일본] NHK
+71,filename,udp://239.192.69.207:49220
+72,type,0
+72,label,[일본 드라마] CH W
+72,filename,udp://239.192.70.11:49220
+73,type,0
+73,label,[일본방송] CH J
+73,filename,udp://239.192.69.101:49220
+74,type,0
+74,label,[프랑스] TV5MONDE
+74,filename,udp://239.192.69.206:49220
+75,type,0
+75,label,[중국 드라마] AsiaM
+75,filename,udp://239.192.70.12:49220
+76,type,0
+76,label,[중국 드라마] ASIAN
+76,filename,udp://239.192.65.5:49220
+77,type,0
+77,label,[중국 드라마] CHANNEL CHINA
+77,filename,udp://239.192.64.9:49220
+78,type,0
+78,label,[중국 드라마] CHING
+78,filename,udp://239.192.69.76:49220
+79,type,0
+79,label,[중국국제TV] CGTN
+79,filename,udp://239.192.69.204:49220
+80,type,0
+80,label,[중국방송] CCTV 4
+80,filename,udp://239.192.69.205:49220
+81,type,0
+81,label,[컨텐츠 TV] DIA TV
+81,filename,udp://239.192.55.8:49220
+82,type,0
+82,label,9colors-tv 지역민방
+82,filename,udp://239.192.69.172:49220
+83,type,0
+83,label,TV CHOSUN
+83,filename,udp://239.192.70.232:49220
+84,type,0
+84,label,TV CHOSUN 2
+84,filename,udp://239.192.68.16:49220
+85,type,0
+85,label,YTN
+85,filename,udp://239.192.70.226:49220
+86,type,0
+86,label,YTN Life
+86,filename,udp://239.192.69.4:49220
+87,type,0
+87,label,YTN science
+87,filename,udp://239.192.68.6:49220
+88,type,0
+88,label,Btv 1
+88,filename,udp://239.192.67.34:49220
+89,type,0
+89,label,Btv 2
+89,filename,udp://239.192.67.35:49220
+90,type,0
+90,label,CHANNEL A
+90,filename,udp://239.192.47.4:49220
+91,type,0
+91,label,CMC TV
+91,filename,udp://239.192.69.9:49220
+92,type,0
+92,label,CNTV
+92,filename,udp://239.192.64.15:49220
+93,type,0
+93,label,COMEDY TV
+93,filename,udp://239.192.69.47:49220
+94,type,0
+94,label,D ONE
+94,filename,udp://239.192.65.11:49220
+95,type,0
+95,label,DRAMA CUBE
+95,filename,udp://239.192.69.37:49220
+96,type,0
+96,label,Drama H
+96,filename,udp://239.192.62.52:49220
+97,type,0
+97,label,Dramax
+97,filename,udp://239.192.69.38:49220
+98,type,0
+98,label,E channel
+98,filename,udp://239.192.62.53:49220
+99,type,0
+99,label,EDGE TV
+99,filename,udp://239.192.62.55:49220
+100,type,0
+100,label,event TV
+100,filename,udp://239.192.69.231:49220
+101,type,0
+101,label,FASHION N
+101,filename,udp://239.192.69.140:49220
+102,type,0
+102,label,FOX
+102,filename,udp://239.192.57.4:49220
+103,type,0
+103,label,FOX life
+103,filename,udp://239.192.69.131:49220
+104,type,0
+104,label,FUN TV
+104,filename,udp://239.192.69.106:49220
+105,type,0
+105,label,FX
+105,filename,udp://239.192.69.130:49220
+106,type,0
+106,label,GM TV
+106,filename,udp://239.192.69.70:49220
+107,type,0
+107,label,GTV
+107,filename,udp://239.192.69.104:49220
+108,type,0
+108,label,highlight TV
+108,filename,udp://239.192.68.9:49220
+109,type,0
+109,label,HISTORY
+109,filename,udp://239.192.69.174:49220
+110,type,0
+110,label,HQ+
+110,filename,udp://239.192.69.236:49220
+111,type,0
+111,label,inet
+111,filename,udp://239.192.69.45:49220
+112,type,0
+112,label,K star
+112,filename,udp://239.192.55.6:49220
+113,type,0
+113,label,KBS Drama
+113,filename,udp://239.192.49.6:49220
+114,type,0
+114,label,KBS joy
+114,filename,udp://239.192.56.6:49220
+115,type,0
+115,label,KBS Kids
+115,filename,udp://239.192.58.9:49220
+116,type,0
+116,label,KBS W
+116,filename,udp://239.192.57.8:49220
+117,type,0
+117,label,Korea TV
+117,filename,udp://239.192.64.11:49220
+118,type,0
+118,label,LIFE TIME
+118,filename,udp://239.192.65.3:49220
+119,type,0
+119,label,LIFE U
+119,filename,udp://239.192.69.41:49220
+120,type,0
+120,label,M net
+120,filename,udp://239.192.48.5:49220
+121,type,0
+121,label,MBC Drama
+121,filename,udp://239.192.48.6:49220
+122,type,0
+122,label,MBC MUSIC
+122,filename,udp://239.192.53.4:49220
+123,type,0
+123,label,MBC ON
+123,filename,udp://239.192.48.7:49220
+124,type,0
+124,label,MBC SPORTS+
+124,filename,udp://239.192.81.45:49220
+125,type,0
+125,label,MBC 경남
+125,filename,udp://239.192.150.106:49220
+126,type,0
+126,label,MBC 부산
+126,filename,udp://239.192.150.2:49220
+127,type,0
+127,label,MBC 울산
+127,filename,udp://239.192.150.34:49220
+128,type,0
+128,label,MBC 전주
+128,filename,udp://239.192.150.50:49220
+129,type,0
+129,label,MBCNET
+129,filename,udp://239.192.69.75:49220
+130,type,0
+130,label,MOUNTAIN TV
+130,filename,udp://239.192.66.12:49220
+131,type,0
+131,label,my pet
+131,filename,udp://239.192.69.169:49220
+132,type,0
+132,label,MBN
+132,filename,udp://239.192.45.5:49220
+133,type,0
+133,label,MBN+
+133,filename,udp://239.192.69.228:49220
+134,type,0
+134,label,NETGEO PEOPLE
+134,filename,udp://239.192.69.77:49220
+135,type,0
+135,label,NHK WORLD
+135,filename,udp://239.192.69.208:49220
+136,type,0
+136,label,now 제주
+136,filename,udp://239.192.70.13:49220
+137,type,0
+137,label,OBS
+137,filename,udp://239.192.55.7:49220
+138,type,0
+138,label,OBS W
+138,filename,udp://239.192.65.16:49220
+139,type,0
+139,label,Olive
+139,filename,udp://239.192.58.10:49220
+140,type,0
+140,label,ONSTYLE
+140,filename,udp://239.192.54.9:49220
+141,type,0
+141,label,ONT
+141,filename,udp://239.192.69.105:49220
+142,type,0
+142,label,POLARIS
+142,filename,udp://239.192.69.17:49220
+143,type,0
+143,label,REAL TV
+143,filename,udp://239.192.69.108:49220
+144,type,0
+144,label,SBS CNBC
+144,filename,udp://239.192.53.8:49220
+145,type,0
+145,label,SBS funE
+145,filename,udp://239.192.55.3:49220
+146,type,0
+146,label,SBS Golf
+146,filename,udp://239.192.57.5:49220
+147,type,0
+147,label,SBS Golf
+147,filename,udp://239.192.67.164:49220
+148,type,0
+148,label,SBS MTV
+148,filename,udp://239.192.55.4:49220
+149,type,0
+149,label,SBS PLUS
+149,filename,udp://239.192.49.7:49220
+150,type,0
+150,label,SBS SPORTS
+150,filename,udp://239.192.81.46:49220
+151,type,0
+151,label,SBS 강원
+151,filename,udp://239.192.150.75:49220
+152,type,0
+152,label,SBS 광주
+152,filename,udp://239.192.150.28:49220
+153,type,0
+153,label,SBS 대전
+153,filename,udp://239.192.150.19:49220
+154,type,0
+154,label,SBS 부산경남
+154,filename,udp://239.192.150.3:49220
+155,type,0
+155,label,SBS 전주
+155,filename,udp://239.192.150.51:49220
+156,type,0
+156,label,SBS 청주
+156,filename,udp://239.192.150.43:49220
+157,type,0
+157,label,SBS 포항
+157,filename,udp://239.192.150.11:49220
+158,type,0
+158,label,sky Drama
+158,filename,udp://239.192.64.14:49220
+159,type,0
+159,label,sky ENT
+159,filename,udp://239.192.70.3:49220
+160,type,0
+160,label,SKY PETPARK
+160,filename,udp://239.192.69.175:49220
+161,type,0
+161,label,sky Travel
+161,filename,udp://239.192.64.16:49220
+162,type,0
+162,label,TBS 교통방송
+162,filename,udp://239.192.69.163:49220
+163,type,0
+163,label,TELE NOVELA HD
+163,filename,udp://239.192.66.3:49220
+164,type,0
+164,label,TREndy
+164,filename,udp://239.192.70.6:49220
+165,type,0
+165,label,UBC 울산
+165,filename,udp://239.192.150.35:49220
+166,type,0
+166,label,[아이돌 인터넷방송 TV] CUBE TV
+166,filename,udp://239.192.69.39:49220
+167,type,0
+167,label,[동아방송예술대학교] BRIDGE TV
+167,filename,udp://239.192.70.7:49220
+168,type,0
+168,label,국회방송
+168,filename,udp://239.192.64.5:49220
+169,type,0
+169,label,다문화 TV
+169,filename,udp://239.192.70.16:49220
+170,type,0
+170,label,다문화방송음악
+170,filename,udp://239.192.70.175:49220
+171,type,0
+171,label,동아 TV
+171,filename,udp://239.192.68.17:49220
+172,type,0
+172,label,리빙TV
+172,filename,udp://239.192.69.232:49220
+173,type,0
+173,label,방송대학 TV
+173,filename,udp://239.192.68.3:49220
+174,type,0
+174,label,법률방송
+174,filename,udp://239.192.69.233:49220
+175,type,0
+175,label,복지TV
+175,filename,udp://239.192.69.162:49220
+176,type,0
+176,label,상생방송
+176,filename,udp://239.192.69.69:49220
+177,type,0
+177,label,소비자 TV
+177,filename,udp://239.192.69.170:49220
+178,type,0
+178,label,소상공인방송
+178,filename,udp://239.192.69.164:49220
+179,type,0
+179,label,시니어 TV
+179,filename,udp://239.192.70.15:49220
+180,type,0
+180,label,실버아이TV
+180,filename,udp://239.192.70.4:49220
+181,type,0
+181,label,연합뉴스TV
+181,filename,udp://239.192.57.3:49220
+182,type,0
+182,label,중화TV
+182,filename,udp://239.192.69.133:49220
+183,type,0
+183,label,채널 i
+183,filename,udp://239.192.69.234:49220
+184,type,0
+184,label,채널A플러스
+184,filename,udp://239.192.69.227:49220
+185,type,0
+185,label,채널뷰
+185,filename,udp://239.192.62.54:49220
+186,type,0
+186,label,한국농업방송
+186,filename,udp://239.192.69.173:49220
+187,type,0
+187,label,한국직업방송
+187,filename,udp://239.192.69.195:49220
+188,type,0
+188,label,국방 TV
+188,filename,udp://239.192.69.235:49220
+189,type,0
+189,label,헬스메디
+189,filename,udp://239.192.66.5:49220
+190,type,0
+190,label,K바둑
+190,filename,udp://239.192.69.5:49220
+191,type,0
+191,label,바둑TV
+191,filename,udp://239.192.66.11:49220
+192,type,0
+192,label,브레인 TV
+192,filename,udp://239.192.69.143:49220
+193,type,0
+193,label,[경제] 매일경제 TV
+193,filename,udp://239.192.68.12:49220
+194,type,0
+194,label,[경제] 머니투데이방송
+194,filename,udp://239.192.68.13:49220
+195,type,0
+195,label,[경제] NBN 내외경제 TV
+195,filename,udp://239.192.69.230:49220
+196,type,0
+196,label,[경제] 한국경제
+196,filename,udp://239.192.68.10:49220
+197,type,0
+197,label,[경제] 부동산토마토
+197,filename,udp://239.192.70.9:49220
+198,type,0
+198,label,[경제] e tomato
+198,filename,udp://239.192.65.7:49220
+199,type,0
+199,label,[경제] 서울경제 TV
+199,filename,udp://239.192.69.80:49220
+200,type,0
+200,label,[경제] 이데일리TV
+200,filename,udp://239.192.68.14:49220
+201,type,0
+201,label,[경제] 쿠키건강 TV
+201,filename,udp://239.192.69.137:49220
+202,type,0
+202,label,[경제] 팍스경제 TV
+202,filename,udp://239.192.68.7:49220
+203,type,0
+203,label,[어린이] EBS Kids
+203,filename,udp://239.192.66.10:49220
+204,type,0
+204,label,[어린이] 대교 어린이 TV
+204,filename,udp://239.192.66.13:49220
+205,type,0
+205,label,[어린이 영어] CARRIE
+205,filename,udp://239.192.67.40:49220
+206,type,0
+206,label,[유아] 육아방송
+206,filename,udp://239.192.70.5:49220
+207,type,0
+207,label,[유아] BABY TV
+207,filename,udp://239.192.69.81:49220
+208,type,0
+208,label,[유아] 대교 베이비 TV
+208,filename,udp://239.192.70.10:49220
+209,type,0
+209,label,[뉴스 영어] BBC WORLD NEWS
+209,filename,udp://239.192.69.202:49220
+210,type,0
+210,label,[뉴스 영어] CNN
+210,filename,udp://239.192.69.111:49220
+211,type,0
+211,label,[뉴스 영어] FOX NEWS
+211,filename,udp://239.192.69.239:49220
+212,type,0
+212,label,[주식 영어] Bloomberg
+212,filename,udp://239.192.69.203:49220
+213,type,0
+213,label,[영어] ariang KOREA
+213,filename,udp://239.192.66.14:49220
+214,type,0
+214,label,[영어] mediacorp
+214,filename,udp://239.192.69.201:49220
+215,type,0
+215,label,[영어] NBC GOLF KOREA
+215,filename,udp://239.192.69.102:49220
+216,type,0
+216,label,[영상X] 가요 1
+216,filename,udp://239.192.70.161:49220
+217,type,0
+217,label,[영상X] 가요 2
+217,filename,udp://239.192.70.181:49220
+218,type,0
+218,label,[영상X] 가요 3
+218,filename,udp://239.192.70.183:49220
+219,type,0
+219,label,[영상X] 가요 4
+219,filename,udp://239.192.70.164:49220
+220,type,0
+220,label,[영상X] 가요 5
+220,filename,udp://239.192.70.167:49220
+221,type,0
+221,label,[영상X] 가요 5
+221,filename,udp://239.192.70.176:49220
+222,type,0
+222,label,[영상X] 동요
+222,filename,udp://239.192.70.185:49220
+223,type,0
+223,label,[영상X] 드라마음악
+223,filename,udp://239.192.70.163:49220
+224,type,0
+224,label,[영상X] 라디오 드라마
+224,filename,udp://239.192.70.186:49220
+225,type,0
+225,label,[영상X] 연주음악
+225,filename,udp://239.192.70.180:49220
+226,type,0
+226,label,[영상X] 오페라
+226,filename,udp://239.192.70.173:49220
+227,type,0
+227,label,[영상X] 올드가요 1
+227,filename,udp://239.192.70.165:49220
+228,type,0
+228,label,[영상X] 올드가요 2
+228,filename,udp://239.192.70.188:49220
+229,type,0
+229,label,[영상X] 올드가요 2
+229,filename,udp://239.192.70.187:49220
+230,type,0
+230,label,[영상X] 재즈 1
+230,filename,udp://239.192.70.182:49220
+231,type,0
+231,label,[영상X] 중국가요
+231,filename,udp://239.192.70.168:49220
+232,type,0
+232,label,[영상X] 클래식
+232,filename,udp://239.192.70.172:49220
+233,type,0
+233,label,[영상X] 클래식
+233,filename,udp://239.192.70.177:49220
+234,type,0
+234,label,[영상X] 클럽뮤직
+234,filename,udp://239.192.70.184:49220
+235,type,0
+235,label,[영상X] 팝송
+235,filename,udp://239.192.70.189:49220
+236,type,0
+236,label,[영상X] 팝송
+236,filename,udp://239.192.70.190:49220
+237,type,0
+237,label,[영상X] 팝음악 1
+237,filename,udp://239.192.70.162:49220
+238,type,0
+238,label,[영상X] 팝음악 2
+238,filename,udp://239.192.70.171:49220
+239,type,0
+239,label,[영상X] 팝음악 3
+239,filename,udp://239.192.70.178:49220
+240,type,0
+240,label,[영상X] 피아노 연주곡
+240,filename,udp://239.192.70.174:49220
+241,type,0
+241,label,[영상X] 피아노 연주곡
+241,filename,udp://239.192.70.166:49220
+242,type,0
+242,label,[영상X] 합창
+242,filename,udp://239.192.70.169:49220
+243,type,0
+243,label,[영상X] 합창
+243,filename,udp://239.192.70.170:49220
+244,type,0
+244,label,[기독교] C CHANNEL
+244,filename,udp://239.192.69.72:49220
+245,type,0
+245,label,[기독교] CBS
+245,filename,udp://239.192.69.112:49220
+246,type,0
+246,label,[기독교] CGNTV
+246,filename,udp://239.192.69.67:49220
+247,type,0
+247,label,[기독교] CTSWEEK
+247,filename,udp://239.192.69.113:49220
+248,type,0
+248,label,[기독교] GOOD TV
+248,filename,udp://239.192.69.139:49220
+249,type,0
+249,label,[기독교 음악] CCM
+249,filename,udp://239.192.70.179:49220
+250,type,0
+250,label,[천주교] CPBC
+250,filename,udp://239.192.69.196:49220
+251,type,0
+251,label,[불교] BBS
+251,filename,udp://239.192.69.136:49220
+252,type,0
+252,label,[불교] BTN
+252,filename,udp://239.192.69.79:49220
+253,type,0
+253,label,[불교] JIBS
+253,filename,udp://239.192.150.131:49220
+254,type,0
+254,label,[불교] WBS
+254,filename,udp://239.192.69.197:49220
+255,type,0
+255,label,[낚시] FISHING TV
+255,filename,udp://239.192.65.4:49220
+256,type,0
+256,label,[낚시] FTV HD
+256,filename,udp://239.192.68.5:49220
