@@ -14,14 +14,14 @@
 	<link rel="stylesheet" href="style.css" type="text/css" />
 	<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" type="text/css" />
 	<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-	<script src="//cdn.jsdelivr.net/npm/vue"></script>
+	<script src="https://cdn.jsdelivr.net/npm/vue"></script>
 	<script src="run.js"></script>
 </head>
 <body>
 	<div class="page">
 		<div id="menu" class="menu">
 			<div v-for="itm in items" class="item">
-				<i class="fa {{ itm.ico }}"></i>
+				<div><i class="fa {{ itm.ico }}"></i></div>
 				{{ itm.text }}
 			</div>
 		</div>
