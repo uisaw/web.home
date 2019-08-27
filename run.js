@@ -1,3 +1,15 @@
+var menu = new Vue({
+  el: '#menu',
+  data: {
+    items: [
+      { text:'Info', ico:'fa-info-circle' },
+      { text:'Tv', ico:'fa-television' },
+      { text:'Manual', ico:'fa-file-text-o' }
+    ]
+  }
+});
+
+
 $(function(){
 	$("a.link").click(function(){return false;});
 	$(document).on("mousedown",".tab_time > li > a",function(){
