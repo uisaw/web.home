@@ -13,43 +13,27 @@
 	<title>Rect</title>	
 	<link rel="stylesheet" href="style.css" type="text/css" />
 	<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" type="text/css" />
-	<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-	<script src="https://cdn.jsdelivr.net/npm/vue"></script>
+	<script src="//cdn.jsdelivr.net/npm/vue"></script>
+	<script src="//unpkg.com/axios/dist/axios.min.js"></script>
 	<script src="run.js"></script>
 </head>
-<body>
+<body class="fadein">
 	<div class="page">
-		<div id="menu" class="menu">
-			<div v-for="itm in items" class="item">
-				<div><i class="fa {{ itm.ico }}"></i></div>
-				{{ itm.text }}
+		<div class="menu" :class="{none:menu_none}">
+			<div v-for="(itm,index) in items" @click="smenu(index)" class="item">
+				<div><i class="fa" :class="{ [itm.ico]:true }"></i></div>
+				{{ itm.title }}
 			</div>
 		</div>
-		<div class="smenu none">
-			<div class="item none">
-				<div class="tit"><div class="back"><i class="fa fa-undo"></i></div><i class="fa fa-info-circle"></i> Info</div>
+		<div class="smenu" :class="{none:smenu_none, pos:smenu_pos}">
+			<div v-for="itm in items" class="item" :class="{none:!itm.selected, active:itm.selected && itm_active}">
+				<div class="tit"><div class="back" @click="back"><i class="fa fa-undo"></i></div><i class="fa" :class="{ [itm.ico]:true }"></i> {{ itm.title }}</div>
 				<div class="det">
-					<a href="./info/metro.htm" class="link">Metro</a>
-				</div>
-			</div>
-			<div class="item none">
-				<div class="tit"><div class="back"><i class="fa fa-undo"></i></div><i class="fa fa-television"></i> TV</div>
-				<div class="det">
-					<a href="./tv/Btv.m3u" class="link">Btv Content View</a>
-					<a href="./down.php?fn=/tv/Btv.m3u" class="down">Btv File Download</a>
-					<a href="./tv/hdend_Btv.m3u" class="link">Head end Btv Content View</a>
-					<a href="./down.php?fn=/tv/hdend_Btv.m3u" class="down">Head end Btv File Download</a>
-				</div>
-			</div>
-			<div class="item none">
-				<div class="tit"><div class="back"><i class="fa fa-undo"></i></div><i class="fa fa-file-text-o"></i> Manual</div>
-				<div class="det">
-					<a href="./man/centos.txt" class="link">Centos</a>
-					<a href="./man/httpd.txt" class="link">Apache</a>
+					<a v-for="sub in itm.sub" :href="glnk(sub)" v-on:click.stop.prevent="{{ typeof sub.down==='undefined'? slnk(event) : sdown(event) }}" class="link">{{ sub.title }}</a>
 				</div>
 			</div>
 		</div>
-		<div class="con none"></div>
+		<div class="con" :class="{ none:con_none}" ></div>
 	</div>
 </body>
 </html>

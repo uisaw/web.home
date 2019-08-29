@@ -1,64 +1,92 @@
-var menu = new Vue({
-  el: '#menu',
-  data: {
-    items: [
-      { text : 'Info', ico : 'fa-info-circle' },
-      { text : 'Tv', ico : 'fa-television' },
-      { text : 'Manual', ico : 'fa-file-text-o' }
-    ]
-  }
-});
+window.addEventListener("load", function(event) {
+	document.body.style.opacity = 1;
+	let page = new Vue({
+		el: '.page',
+		data: {
+			menu_none:false,
+			smenu_none:true,
+			smenu_pos:false,
+			con_none:true,
+			itm_active:false,
+			items: [
+				{title:'Info', ico:'fa-info-circle', selected:false, sub:[{title:'Metro', lnk:'./info/metro.htm'}]},
+				{title:'Tv', ico:'fa-television', selected:false, sub:[{title:'Btv Content View', lnk:'./tv/Btv.m3u'},{title:'Btv File Download', down:'/tv/Btv.m3u'},{title:'Head end Btv Content View', lnk:'./tv/hdend_Btv.m3u'},{title:'Head end Btv File Download', down:'/tv/hdend_Btv.m3u'}]},
+				{title:'Manual', ico:'fa-file-text-o', selected:false, sub:[{title:'Centos', lnk:'./man/centos.txt'},{title:'Apache', lnk:'./man/httpd.txt'}]}
+			]
+		},
+		methods: {
+			smenu: function(idx){
+				let obj = this.items;
+				this.smenu_none = false;
+				obj.forEach(function(val,key){
+					obj[key].selected = false;
+				});
+				obj[idx].selected = true;
+				this.menu_none = true;
+			},
+			back: function(){
+				let obj = this.items;
+				let con = this.$el.querySelector(".con");
+				obj.forEach(function(val,key){
+					obj[key].selected = false;
+				});
+				con.innerHTML = '';
+				this.menu_none = false;
+				this.smenu_none = true;
+				this.smenu_pos = false;
+				this.con_none = true;
+				this.itm_active = false;
+			},
+			glnk: function(itm){
+				let ret;
+				if (typeof itm.lnk === 'undefined'){
+					ret = itm.down;
+				}else {
+					ret = itm.lnk;
+				}
+				return ret;
+			},
+			slnk: function(event){
+				let req = new XMLHttpRequest();
+				let obj = this.$el.querySelector(".con");
+				let lnk = event.target.getAttribute("href");
 
-
-$(function(){
-	$("a.link").click(function(){return false;});
-	$(document).on("mousedown",".tab_time > li > a",function(){
-		var ele = $(this).parent();
-		if (ele.hasClass("on")==false){
-			var idx = $(".tab_time").find("li").index(ele);
-			ele.parent().find("li").removeClass("on");
-			ele.addClass("on");
-			$(".direction_time").addClass("none");
-			$(".direction_time").eq(idx).removeClass("none");
-		}
-	});
-
-	$(document).on("mousedown",".menu > .item",function(){
-		var idx = $(this).parent().find(".item").index(this);
-		$(".smenu > .item").addClass("none");
-		$(".smenu > .item").eq(idx).removeClass("none");
-		$(".menu").addClass("none");
-		$(".smenu").removeClass("none");
-	});
-
-	$(document).on("mousedown",".smenu:not(.pos) > .item > .tit > .back",function(){
-		var idx = $(this).parent().parent().parent().find(".item").index($(this).parent().parent());
-		$(".smenu > .item").addClass("none");
-		$(".menu").removeClass("none");
-	});
-
-	$(document).on("mousedown",".pos > .active > .tit > .back",function(){
-		var idx = $(this).parent().parent().parent().find(".item").index($(this).parent().parent());
-		$(".page > .con").html('').addClass("none");
-		$(".smenu").removeClass("pos");
-		$(".smenu > .item").removeClass("active");
-	});
-
-	$(document).on("mousedown",".smenu > .item > .det > .link",function(){
-		var ele = $(this);
-		var lnk = $(this).attr("href");
-		$.get(lnk,function(data){
-			ele.parent().parent().parent().addClass("pos");
-			ele.parent().parent().addClass("active");
-			if (/(\.htm|\.html)/.test(lnk)){
-				$(".page > .con").html('').append(data);
-			}else {
-				con = data.replace(/(\n)/g,'<br />');
-				$(".page > .con").html('').append('<div class="txt">'+con+'</div>');
+				axios({
+					url: lnk,
+					method: 'GET',
+					responseType: 'TEXT',
+				}).then((response) => {
+					if (/(\.htm|\.html)/.test(lnk)){
+						obj.innerHTML = response.data;
+					}else {
+						obj.innerHTML = '<div class="text">' + response.data.replace(/(\n)/g,'<br />') + '</div>';
+					}
+					this.menu_none = true;
+					this.smenu_none = false;
+					this.smenu_pos = true;
+					this.con_none = false;
+					this.itm_active = true;
+				});
+			},
+			sdown: function(event){
+				let lnk = event.target.getAttribute("href");
+				let fileName = lnk.substring(lnk.lastIndexOf('/')+1,lnk.length);
+				console.log(fileName);
+				axios({
+					url: lnk,
+					method: 'GET',
+					responseType: 'blob',
+				}).then((response) => {
+					let url = window.URL.createObjectURL(new Blob([response.data]));
+					let link = document.createElement('a');
+					link.href = url;
+					link.classList.add('down');
+					link.setAttribute('download', fileName);
+					document.body.appendChild(link);
+					link.click();
+					document.removeChild('a');
+				});
 			}
-			
-			$(".page > .con").removeClass("none");
-		});
-	});
-
+		}
+	})
 });

@@ -8,7 +8,7 @@ address, caption, cite, code, dfn, em, var {font-style:normal; font-weight:400;}
 .menu > .item {width:32%; margin:0; box-sizing:border-box; border:1px #cecece solid; text-align:center; display:inline-block; font-size:18px; font-weight:bold; background-color:#222; color:#fff; padding:5vh 0px; cursor:pointer;}
 .menu > .item > div {font-size:48px;}
 .menu > .item:hover {color:yellow;}
-
+.fadein {opacity: 0; -moz-transition: opacity 1.5s; -webkit-transition: opacity 1.5s; -o-transition: opacity 1.5s; transition: opacity 1.5s;}
 .none {display:none !important;}
 .green {color:green;}
 
@@ -27,11 +27,9 @@ address, caption, cite, code, dfn, em, var {font-style:normal; font-weight:400;}
 
 .con {width:100%;}
 .con > .txt {width:100%; word-wrap:break-word; word-break:break-all; text-overflow:ellipsis; overflow:hidden;}
-
-
-
 .screen_out{overflow:hidden;position:absolute;width:0;height:0;line-height:0;text-indent:-9999px;}
 .show{display:block;}
+.down {display:none;}
 .hide{display:none;}
 .ico_comm {display:block; overflow:hidden; font-size:1px; line-height:0; background:url(//t1.daumcdn.net/localimg/localimages/07/2018/pc/ico_detail_190102.png) no-repeat; background-repeat:no-repeat; text-indent:-9999px;}
 .particular_head {overflow:hidden;}
