@@ -24,7 +24,7 @@ address, caption, cite, code, dfn, em, var {font-style:normal; font-weight:400;}
 .pos {width:100% !important; position:relative !important; top:0 !important; left:0 !important; margin-top:0px !important;}
 .pos > .active {border:0px !important; position:fixed !important; top:0px;}
 .pos > .active > .det {display:none !important;}
-
+.mtop {margin-top:60px;}
 .con {width:100%;}
 .con > .txt {width:100%; word-wrap:break-word; word-break:break-all; text-overflow:ellipsis; overflow:hidden;}
 .screen_out{overflow:hidden;position:absolute;width:0;height:0;line-height:0;text-indent:-9999px;}
