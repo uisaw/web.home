@@ -10,7 +10,7 @@ window.addEventListener("load", function(event) {
 			itm_active:false,
 			items: [
 				{title:'Info', ico:'fa-info-circle', selected:false, sub:[{title:'Metro', lnk:'./info/metro.htm'}]},
-				{title:'Tv', ico:'fa-television', selected:false, sub:[{title:'Btv Content View', lnk:'./tv/Btv.m3u'},{title:'Btv File Download', down:'/tv/Btv.m3u'},{title:'Head end Btv Content View', lnk:'./tv/hdend_Btv.m3u'},{title:'Head end Btv File Download', down:'/tv/hdend_Btv.m3u'}]},
+				{title:'Tv', ico:'fa-television', selected:false, sub:[{title:'Btv Content View', lnk:'./tv/Btv.m3u'},{title:'Btv File Download', down:'./tv/Btv.m3u'},{title:'Head end Btv Content View', lnk:'./tv/hdend_Btv.m3u'},{title:'Head end Btv File Download', down:'./tv/hdend_Btv.m3u'}]},
 				{title:'Manual', ico:'fa-file-text-o', selected:false, sub:[{title:'Centos', lnk:'./man/centos.txt'},{title:'Apache', lnk:'./man/httpd.txt'}]}
 			]
 		},
