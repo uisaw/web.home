@@ -74,11 +74,8 @@ window.addEventListener("load", function(event) {
 									e.classList.toggle('none',true);
 								});
 								document.querySelectorAll(".direction_time")[index].classList.toggle('none',false);
-
-
 							});
 						});
-						
 
 					}else {
 						data = response.data;

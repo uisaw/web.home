@@ -1,0 +1,9 @@
+/// php ///
+
+- #excel download
+  if(preg_match("/(xls|xlsx)/i",$rfn)) {
+    header("content-type: application/x-msexcel");
+    header("content-length: ".filesize("$path/$fpos"));
+    header("content-disposition: attachment; filename=".iconv("UTF-8","EUC-KR",$rfn));
+    header("content-description: PHP/INTERBASE Generated Data");
+    #data 부분 iconv적용??

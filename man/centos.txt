@@ -180,6 +180,7 @@
   GRANT ALL PRIVILEGES ON DB명.* to 계정명@localhost IDENTIFIED BY '비번' WITH GRANT OPTION;
   alter database DB명 character set utf8 collate utf8_general_ci;
   flush privileges;
+  update user set Select_priv='N',Insert_priv='N',Update_priv='N',Delete_priv='N',Create_priv='N',Drop_priv='N',Reload_priv='N',Shutdown_priv='N',Process_priv='N',File_priv='N',Grant_priv='N',References_priv='N',Index_priv='N',Alter_priv='N',Show_db_priv='N',Super_priv='N',Create_tmp_table_priv='N',Lock_tables_priv='N',Execute_priv='N',Repl_slave_priv='N',Repl_client_priv='N',Create_view_priv='N',Show_view_priv='N',Create_routine_priv='N',Alter_routine_priv='N',Create_user_priv='N',Event_priv='N',Trigger_priv='N' where User='survey';
 
 + 계정생성시 기본 설정 및 폴더 
   /etc/skel 에 www(혹은 자신이 정한 웹폴더) 추가 
@@ -334,6 +335,62 @@
    yum install httpd httpd-devel
    yum install php php-devel php-mbstring php-mysql php-gd
    yum install mysql mysql-server mysql-devel
+
++ MYSQL
+ - vi /etc/my.cnf
+   [mysqld]
+   default-character-set=utf8
+   old_passwords=1
+   init_connect = "SET collation_connection = utf8_general_ci"
+   init_connect='set names binary'
+   character-set-server=utf8
+   default-collation=utf8_general_ci
+   skip-character-set-client-handshake
+   character-set-filesystem=utf8
+   default-character-set=utf8
+
+   [mysqld_safe]
+   log-error=/var/log/mysqld.log
+   pid-file=/var/run/mysqld/mysqld.pid
+
+   [mysql]
+   default-character-set=utf8
+
+   [client]
+   default-character-set=utf8
+
+   [mysqldump]
+   default-character-set=utf8
+
+
+ - CENTOS 6.3
+   # cp /usr/share/mysql/my-huge.cnf /etc/my.cnf
+   ------- 용량별 복사파일 -------
+   my-huge.cnf      1~2G
+   my-large.cnf      512M
+   my-medium.cnf   128M~ 256M
+   my-small.cnf      64M 이하
+   --------------------
+   * UTF8 인코딩 설정
+   # vi my.cnf
+
+   아래 내용을 추가한다.
+   [client]
+   password        = your_password
+   default-character-set   = utf8
+
+   [mysqld]
+   init_connect = SET collation_connection = utf8_general_ci
+   init_connect = SET NAMES utf8
+   default-character-set = utf8
+   character-set-server = utf8
+   collation-server = utf8_general_ci
+
+   [mysqldump]
+   default-character-set=utf8
+
+   [mysql]
+   default-character-set=utf8
 
 + DNS
  - 기본설정
@@ -548,9 +605,6 @@
 
    - makemap hash virtusertable < virtusertable
 
-+ 방화벽 제어
-  system-config-securitylevel
-
 + 텔넷 설정
  - 텔넷 설치여부 확인
    # rpm -qa|grep telnet
@@ -606,64 +660,11 @@
  - 방화벽 재시작
    # /etc/init.d/iptables restart
 
+ - 방화벽 제어
+   system-config-securitylevel
+
 + samba
  - smbstatus (상태확인)
-
-+ MYSQL
- - vi /etc/my.cnf
-   [mysqld]
-   default-character-set=utf8
-   old_passwords=1
-   init_connect = "SET collation_connection = utf8_general_ci"
-   init_connect='set names binary'
-   character-set-server=utf8
-   default-collation=utf8_general_ci
-   skip-character-set-client-handshake
-   character-set-filesystem=utf8
-   default-character-set=utf8
-
-   [mysqld_safe]
-   log-error=/var/log/mysqld.log
-   pid-file=/var/run/mysqld/mysqld.pid
-
-   [mysql]
-   default-character-set=utf8
-
-   [client]
-   default-character-set=utf8
-
-   [mysqldump]
-   default-character-set=utf8
-
-
- - CENTOS 6.3
-   # cp /usr/share/mysql/my-huge.cnf /etc/my.cnf
-   ------- 용량별 복사파일 -------
-   my-huge.cnf      1~2G
-   my-large.cnf      512M
-   my-medium.cnf   128M~ 256M
-   my-small.cnf      64M 이하
-   --------------------
-   * UTF8 인코딩 설정
-   # vi my.cnf
-
-   아래 내용을 추가한다.
-   [client]
-   password        = your_password
-   default-character-set   = utf8
-
-   [mysqld]
-   init_connect = SET collation_connection = utf8_general_ci
-   init_connect = SET NAMES utf8
-   default-character-set = utf8
-   character-set-server = utf8
-   collation-server = utf8_general_ci
-
-   [mysqldump]
-   default-character-set=utf8
-
-   [mysql]
-   default-character-set=utf8
 
 + VSFTP (CENTOS 6.3)
    ## sftp disable ##
@@ -700,6 +701,36 @@
   chmod 711 /boot
   chmod 711 /www
   chmod 711 /var
+
++ cron 설정
+ - 기본정보
+   # Example of job definition:
+   # .---------------- minute (0 - 59)
+   # |  .------------- hour (0 - 23)
+   # |  |  .---------- day of month (1 - 31)
+   # |  |  |  .------- month (1 - 12) OR jan,feb,mar,apr ...
+   # |  |  |  |  .---- day of week (0 - 6) (Sunday=0 or 7) OR sun,mon,tue,wed,thu,fri,sat
+   # |  |  |  |  |
+   # *  *  *  *  * user-name command to be executed
+
+   ex > 0 06 * * * sh /root/backup.sh => 오전 06시 에 실행 
+
+ - crontab -e
+   스케줄 설정 편집기나오면 위내용 참조후 등록 및 수정
+
+ - crontab -l 
+   등록된 스케줄 출력
+
+ - crontab -r
+   등록된 스케줄 삭제
+
+ - 크론로깅
+   * * * * * /home/test.sh >> /home/test.sh.log 2>&1 => 크론실행후 로그기록
+
+
+
+
+
 
 
 
