@@ -700,3 +700,11 @@
   chmod 711 /boot
   chmod 711 /www
   chmod 711 /var
+
+
+
+
+
+
+
+
