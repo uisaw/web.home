@@ -1,537 +1,197 @@
-//// 자동 백업 /////
-http://www.phpschool.com/gnuboard4/bbs/board.php?bo_table=tipntech&wr_id=66
-
-
-//// 보안 관련 /////
-http://blog.haansoft.com/blog?act=BLOG_LIST&mst_seq=15&pg=0&bbs_name=OSS%C6%C0+%BA%ED%B7%CE%B1%D7&blog_id=haanblog03&bbs_type=2&target=blog&Flist_seq=&tagok=%B8%AE%B4%AA%BD%BA
-http://blog.naver.com/qodn678/60067768134
-
-//// apache 관련 //////
-/etc/httpd/conf/httpd.conf >> apache 설정파일 위치
-service httpd start >> apache 시작 (start,restart,stop)
-chcon -R -t httpd_user_content_t /var/www/html >> virtual 설정시 링크 손상시 재연결및 연결
-setenforce 0 >> 403 에러날때.
-
-- selinux 관련 403 처리방법
-setsebool -P httpd_enable_homedirs on
-chcon -R -t httpd_sys_content_t /home/
-chcon -R -t httpd_sys_rw_content_t /home/
-
-/// centos 6.3 기준  설정 ///
-=== /etc/php.ini 설정  ===
-short_open_tag = On --> &lt;?php 로 쓰는부분을 &lt;? 로 대신해서 먹히게함.
-
-=== /etc/httpd/conf.d/php.conf 설정 ===
-AddType application/x-httpd-php .php .htm .html --> 없을 경우 추가
-AddType application/x-httpd-php-source .phps  --> 주석해제
-
-=== /etc/httpd/conf/httpd.conf 설정 ===
-DocumentRoot "/var/www/html" --> 주석처리
-DirectoryIndex index.html index.html.var index.htm index.php -->이렇게 수정
-NameVirtualHost *:80 --> 주석제거
-
-<VirtualHost *:80>
-    ServerAdmin blueriver@lostship.com
-    DocumentRoot /home/blueriver/www/
-    ServerName blueriver.lostship.com
-    ErrorLog logs/blueriver-error_log
-    CustomLog logs/blueriver-access_log common
-</VirtualHost>
-
-<VirtualHost *:80>
-    ServerAdmin kernul@lostship.com
-    DocumentRoot /home/kernul/www/
-    ServerName kernul.lostship.com
-    ErrorLog logs/kernul-error_log
-    CustomLog logs/kernul-access_log common
-</VirtualHost>
-=====================================
-
-
-/// zend optimizer 설치 ///
-wget http://www.atomicorp.com/installers/atomic
-sh atomic
-yum search zend optimizer -->검색해서 나온결과중 eaccelerator 로설치.. 혹은 문구가 나오는것 살펴보고 설치
-yum -y install php-eaccelerator.i686
-
-
-
-
-//// 프로세스 확인 //////
-ps -e | grep httpd >> 프로세스중 httpd 네임검색 
-ps -a | grep http >> 프로세스중 http 네임검색
-ps -ef | grep named >> 프로세스중 named 검색
-
-
-//// 포트확인 //////
-nmap -sT localhost >> 열려있는 포트확인
-nmap -p 1-65535 localhost >> 포트번호 1부터 65535 까지 localhost 내에서 검색
-
-
-/////// dns 관련 ///////
-/etc/resolv.conf >> dns 기본설정 관련 파일
-/var/named/chroot/var/named/ >> dns의 zone(정방향),rev(역방향) 파일위치
-service named start >> dns 시작 (start,restart,stop,reload)
-grep named /var/log/messages >> dns 로그확인
-vi /etc/sysconfig/iptables >> 방화벽 규칙 설정 
-service iptables (start,restart,stop,status) >> 방화벽 시작및 상태 보기
-
-////// link 파일 생성 ///////
-ls -s /var/named/chroot/var/named/lostship.net.zone /var/named/lostship.net.zone
-ln -s /var/named/chroot/var/named/lostship.net.zone /var/named/lostship.net.zone
-
-///// 도메인 및 ip확인 //////
-nslookup
-
-
-//// rpm 패키지 설치유무 출력 ////
-rpm -qa |grep name
-rpm -qa | grep bind*
-
-
-////// 방화벽 제어 //////
-system-config-securitylevel
-
-////open port////////
-PORT     STATE SERVICE
-21/tcp   open  ftp
-22/tcp   open  ssh
-23/tcp   open  telnet
-25/tcp   open  smtp
-53/tcp   open  domain (+udp)
-80/tcp   open  http
-110/tcp  open  pop3
-111/tcp  open  rpcbind
-139/tcp  open  netbios-ssn
-443/tcp  open  https
-445/tcp  open  microsoft-ds
-980/tcp  open  unknown ---> samba
-3306/tcp open  mysql
-5801/tcp open  vnc-http-1
-5901/tcp open  vnc-1
-6001/tcp open  X11:1
-
-//// sendmail 설정 ////
-http://www.superuser.co.kr/home/lecture/?leccode=10471
-http://www.superuser.co.kr/home/search/index.php?textview=1&select=&keyword=centos+sendmail
-/etc/mail/sendmail.mc 편집
-
-dnl TRUST_AUTH_MECH(`EXTERNAL DIGEST-MD5 CRAM-MD5 LOGIN PLAIN')dnl
-dnl define(`confAUTH_MECHANISMS', `EXTERNAL GSSAPI DIGEST-MD5 CRAM-MD5LOGIN PLAIN')dnl 
---> TRUST_AUTH_MECH(`EXTERNAL DIGEST-MD5 CRAM-MD5 LOGIN PLAIN')dnl
-    define(`confAUTH_MECHANISMS', `EXTERNAL GSSAPI DIGEST-MD5 CRAM-MD5 LOGIN PLAIN')dnl
-
-DAEMON_OPTIONS(`Port=smtp,Addr=127.0.0.1, Name=MTA')dnl
---> dnl DAEMON_OPTIONS(`Port=smtp,Addr=127.0.0.1, Name=MTA')dnl 
-
-m4 /etc/mail/sendmail.mc > /etc/mail/sendmail.cf
-
-/etc/mail/access 편집
-ex>> 도메인명 탭키구분 RELAY
-      gnux.co.kr       RELAY
-makemap hash /etc/mail/access.db < /etc/mail/access
-
-/etc/mail/local-host-names 편집
-ex> 도메인명
-    gnux.co.kr
-
-/etc/mail/virtusertable 파일 이용한 가상 유저 셋팅
-ex>
-webmaster@0link.co.kr           gnux
-webmaster@hyung.co.kr           hyung
-
-makemap hash virtusertable < virtusertable
-
-참조 http://blog.empas.com/zeroscience/24988105
-
-//// 파일명령 ////
-for i in *_in* ; do cp -f $i `echo "./"$i | sed -n -e 's/\([A-Za-z0-9]*\)\(\/\)\([A-Za-z0-9]*\)*\(_in\)*\([A-Za-z0-9]\)*/\1\2\3/p'`;done
-설명 : 파일명중 _in이 들어간파일을 _in을 제외한 네임으로 파일을 복사한다.
-
-//// samba 접속시 사용하는 포트 ////
-UDP: 135, 137, 138
-TCP: 135, 139, 445
-
-
-//// 텔넷 설정 ////
-1.  텔넷 설치여부 확인
-# rpm -qa|grep telnet
-   telnet-0.17-31.EL4.2
-
-
-없을경우
-# yum install telnet
-업데이트
-# yum -y upgrade telnet-server
-
-
-2. 텔넷 설정파일 수정(disable=no)
-# vi /etc/xinetd.d/telnet
-   service telnet
-   {
-           flags               =        REUSE
-           socket_type     =        stream
-           wait                =        no
-           user                =        root
-           server              =        /usr/sbin/in.telnetd
-           log_on_failure  +=       USERID
-           disable            =        no
-   }
-
-3. 텔넷 서비스 재시작
-#/etc/init.d/xinetd restart
-
-
-5 방화벽 해제
-vi /etc/sysconfig/iptables 
-   
-# Firewall configuration written by lokkit
-# Manual customization of this file is not recommended.
-# Note: ifup-post will punch the current nameservers through the
-#       firewall; such entries will *not* be listed here.
-*filter
-:INPUT ACCEPT [0:0]
-:FORWARD ACCEPT [0:0]
-:OUTPUT ACCEPT [0:0]
-:RH-Lokkit-0-50-INPUT - [0:0]
--A INPUT -j RH-Lokkit-0-50-INPUT
--A FORWARD -j RH-Lokkit-0-50-INPUT
-.
-.
--A RH-Lokkit-0-50-INPUT -p tcp -m tcp --dport 23 --syn -j ACCEPT &lt;- 추가
-.
-.
-COMMIT
-
-6. 방화벽 재시작
-# /etc/init.d/iptables restart
-
-7. telnet 서비스는 root 사용자로 로그인 할 수 없도록 되어 있다(보안상) 
-   그래도 root 사용자로 로그인하고 싶으면 /etc/securetty 파일을 다른 이름으로 바꾸면 된다.
-
-8. 보안관련 SELinux 설정및 참조 (다른곳에 문제가 없는데  썸네일생성 않되는 경우)
-http://centos.pe.kr/owiki/index.php?url=centos&no=11
-http://blog.naver.com/psy909/140059049926
-
-9. 커널버젼및 배포판 버젼 확인 명령어
-
-# uname -a
-커널 정보 및 시간 등을 표시
-
-# uname -r
-커널버젼만 표시
-
-# cat /etc/redhat-release
-리눅스의 배포판 이름표시
-
-# cat /proc/version
-운영체제명, 커널버전, gcc컴파일버전, 생선한 날짜 등의 상세한정보 표시
-
-#samba 상태
-smbstatus
-
-#gd 설치
-yum install httpd httpd-devel
-yum install php php-devel php-mbstring php-mysql php-gd
-yum install mysql mysql-server mysql-devel
-
-#텔넷 eucKR 사용하기 &amp; manpage euc-kr 사용하기
-/etc/sysconfig/i18n
-LANG="ko_KR.eucKR"
-SUPPORTED="ko_KR.UTF-8:ko_KR:ko"
-SYSFONT="latarcyrheb-sun16"
-
-/etc/man.config
-TROFF groff -Tps -man
-NROFF nroff -c -mandoc
-EQN /usr/bin/geqn -Tps
-NEQN /usr/bin/geqn -Tkorean
-TBL /usr/bin/gtbl
-# COL /usr/bin/col
-REFER /usr/bin/grefer
-PIC /usr/bin/gpic
-VGRIND
-GRAP
-PAGER /usr/bin/less -isr
-CAT /bin/cat
-
-
-#터미널 폴더색 바꾸기 (최하단부에 삽입)
-/etc/bashrc
-LS_COLORS="no=00:fi=00:di=01;34:ln=01;36:pi=40;33:so=01;35:bd=40;33;01:cd=40;33;01:or=01;05;37;41:mi=01;05;37;41:ex=01;32:*.cmd=01;32:*.exe=01;32:*.com=01;32:*.btm=01;32:*.bat=01;32:*.sh=01;32:*.csh=01;32:*.tar=01;31:*.tgz=01;31:*.arj=01;31:*.taz=01;31:*.lzh=01;31:*.zip=01;31:*.z=01;31:*.Z=01;31:*.gz=01;31:*.bz2=01;31:*.bz=01;31:*.tz=01;31:*.rpm=01;31:*.cpio=01;31:*.jpg=01;35:*.gif=01;35:*.bmp=01;35:*.xbm=01;35:*.xpm=01;35:*.png=01;35:*.tif=01;35:"
-
-#centOS 5.4
-설치후 바로 해야할것..
-vi /etc/yum.repos.d/CentOS-Media.repo
-Modify it to enabled=0
-yum -v update --disablerepo=contrib
-
-
-#dns 관련설정
-포트 53오픈 tcp,udp
-
-centos 6.3 기준
-
-=== /etc/named.conf ===
-options {
-        //listen-on port 53 { 127.0.0.1; };
-        //listen-on port 53 {192.168.10.44;};
-        //listen-on-v6 port 53 { ::1; };
-        listen-on port 53 { any; };
-        directory       "/var/named";
-        dump-file       "/var/named/data/cache_dump.db";
-        statistics-file "/var/named/data/named_stats.txt";
-        memstatistics-file "/var/named/data/named_mem_stats.txt";
-        allow-query     { any; };
-        recursion yes;
-
-        dnssec-enable yes;
-        dnssec-validation yes;
-        dnssec-lookaside auto;
-
-        /* Path to ISC DLV key */
-        bindkeys-file "/etc/named.iscdlv.key";
-
-        managed-keys-directory "/var/named/dynamic";
-};
-==========
-
-=== /etc/host.conf ===
-multi on
-=================
-
-=== /etc/hosts  ===
-127.0.0.1 lostship.net localhost
-220.83.166.119 ns.lostship.net ns
-===============
-
-=== /etc/resolv.conf ===
-# Generated by NetworkManager
-#domain lan
-#search lan lostship.net
-domain lostship.net
-serarch losthsip.net
-nameserver 192.168.10.44
-nameserver 168.126.63.1
-nameserver 168.126.63.2
-==================
-
-=== /etc/named.rfc1912.zones ===
-==기존라인 모두 주석처리후 추가라인==
-zone "lostship.net" IN {
-        type master;
-        file "lostship.net.zone";
-        allow-update { none; };
-};
-==========================
-
-=== /etc/sysconfig/network ===
-NETWORKING=yes
-NETWORKING_IPV6=no
-#HOSTNAME=localhost.localdomain
-HOSTNAME=lostship
-DOMAINNAME=lostship.net
-========================
-
-=== /var/named/lostship.net.zone ===
-심볼릭링크파일이며 실제파일은 /var/named/chroot/var/named/localhost.zone 에 존재
-$TTL 86400
-
-@               IN      SOA     ns.lostship.net.   root.lostship.net. (
-                                2012101901      ;       Serial
-                                43200           ;       Refresh
-                                3600            ;       Retry
-                                3600000         ;       Expire
-                                2592000 )       ;       Minimum
-
-;       Define the nameservers and the mail servers
-
-                IN      NS      ns.lostship.net.
-;                IN      MX  10  mail.lostship.net.
-                IN      A       220.83.166.119
-
-;localhost IN A 127.0.0.1
-ns      IN      A       220.83.166.119
-www     IN      CNAME   @
-*       IN      CNAME   ns
-
-;mail    IN      A       220.83.166.119
-============================
-
-=== /var/named/named.ca ===
-파일 복사및 퍼미션은 644, 소유자는 root:named로 
-cp /var/named/named.ca /var/named/chroot/var/named/named.ca
-=======================
-
-
-================================== 5.x 기준 =======================================
-
-vi /var/named/chroot/etc/named.conf
-zone "xxx.net." IN {
-	type master;
-	file "xxx.net.db";
-	allow-update { none; }
-};
-
-zone "0.168.192.in-addr.arpa" IN {
-	type master;
-	file "0.168.192.db";
-	allow-update { none; };
-};
-
-zone "62.155.121.in-addr.arpa" IN {
-	type master;
-	file "62.155.121.db";
-	allow-update { none; };
-};
-
-
-vi /etc/named.caching-nameserver.conf
-listen-on port 53 { any; };
-query-source port 53;
-//query-source-v6 port 53;
-allow-query { any; };
-//allow-query-cache { localhost; };
-
-vi /etc/hosts
-127.0.0.1	lostlhost.localdomain localhost
-121.155.62.31	xxx.net xxx
-
-vi /etc/resolv.conf
-search localhost
-nameserver 192.168.0.20
-nameserver 168.126.63.1
-nameserver 168.126.63.2
-
-vi /etc/sysconfig/network
-HOSTNAME=xxx 
-DOMAINNAME=xxx.net
-
-
-vi /var/named/chroot/var/named/xxx.net.db
-$TTL	86400
-@	IN	SOA	ns.xxx.net. root.xxx.net. (
-				2010050811	; serial
-				4H		; refresh
-				15M		; retry
-				1W		; expiry
-				1D )		; minimum
-	IN 	NS	ns.xxx.net.
-	IN 	A	121.155.62.31
-www	IN 	A	121.155.62.31
-ns	IN 	CNAME	@
-redmine IN 	CNAME	ns
-*	IN 	CNAME	ns
-31	IN 	PTR	thedream.net.
-
-vi /var/named/chroot/var/named/0.168.192.db
-$TTL	86400
-@	IN	SOA	ns.xxx.net. root.xxx.net. (
-				2010050812	; serial
-				3H		; refresh
-				15M		; retry
-				1W		; expiry
-				1D )		; minimum
-	IN	NS	ns.xxx.net.
-	IN	A	192.168.0.20
-ns	IN	A	192.168.0.20
-20	IN	PTR	thedream.net.
-
-vi /var/named/chroot/var/named/62.155.121.db
-$TTL	86400
-@	IN	SOA	ns.thedream.net. root.thedream.net. (
-				2010051009	; serial
-				3H		; refresh
-				15M		; retry
-				1W		; expiry
-				1D )		; minimum
-	IN	NS	ns.thedream.net.
-	IN	A	121.155.62.31
-ns	IN	A	121.155.62.31
-31	IN	PTR	thedream.net.
-===========================================================================================
-
-#mysql 설정
-vi /etc/my.cnf
-[mysqld]
-datadir=/var/lib/mysql
-socket=/var/lib/mysql/mysql.sock
-user=mysql
-default-character-set=utf8
-# Default to using old password format for compatibility with mysql 3.x
-# clients (those using the mysqlclient10 compatibility package).
-old_passwords=1
-
-init_connect='set names utf8'
-character-set-server=utf8
-default-collation=utf8_unicode_ci
-skip-character-set-client-handshake
-character-set-filesystem=utf8
-default-character-set=utf8
-
-[mysqld_safe]
-log-error=/var/log/mysqld.log
-pid-file=/var/run/mysqld/mysqld.pid
-
-[mysql]
-default-character-set=utf8
-
-[client]
-default-character-set=utf8
-
-[mysqldump]
-default-character-set=utf8
-
-
-======== centos 6.3 ============
-# cp /usr/share/mysql/my-huge.cnf /etc/my.cnf
-
-------- 용량별 복사파일 -------
-my-huge.cnf      1~2G
-my-large.cnf      512M
-my-medium.cnf   128M~ 256M
-my-small.cnf      64M 이하
---------------------
-* UTF8 인코딩 설정
-# vi my.cnf
-
-아래 내용을 추가한다.
-[client]
-password        = your_password
-default-character-set   = utf8
-
-[mysqld]
-init_connect = SET collation_connection = utf8_general_ci
-init_connect = SET NAMES utf8
-default-character-set = utf8
-character-set-server = utf8
-collation-server = utf8_general_ci
-
-[mysqldump]
-default-character-set=utf8
-
-[mysql]
-default-character-set=utf8
-
----------mysql 관련------------------------------------------------------
-create database DB명;
-GRANT ALL PRIVILEGES ON DB명.* to 계정명@localhost IDENTIFIED BY '비번' WITH GRANT OPTION;
-alter database DB명 character set utf8 collate utf8_general_ci;
-flush privileges;
--------------------------------------------------------------------------
-
-
-========== 사용자 계정 추가  =============
-
-/etc/skel 에 www(혹은 자신이 정한 웹폴더) 추가 
-
-######## /root/adduser <-- 파일추가 700권한  #######
-File Name : adduser
-#!/bin/bash
-# Usage : ./adduser id password
-
-if useradd $1
-then
+//// 유용한 정보 /////
++ virtual box
+   vi /boot/grub/grub.conf   ~~quiet vga=0x317추가
+
+ - 설정
+   네트워크 - NET : 반가상
+   포트포워딩 : 22,80 (22번은 외부에서 접근안되므로 다른포트 지정 후 포워딩은 22번으로)
+   윈도우내에서 22번관련 사용될 새로운 포트 방화벽 해제
+   공유기에서 새로운포트 를 해당 pc에 포워딩
+
+ - vbox 백그라운드로 실행관련
+   cd C:\Program Files\Oracle\VirtualBox
+   VBoxManage startvm "centos" --type headless
+
++ 포트관련
+  PORT     STATE SERVICE
+  21/tcp   open  ftp
+  22/tcp   open  ssh
+  23/tcp   open  telnet
+  25/tcp   open  smtp
+  53/tcp   open  domain (+udp)
+  80/tcp   open  http
+  110/tcp  open  pop3
+  111/tcp  open  rpcbind
+  139/tcp  open  netbios-ssn
+  443/tcp  open  https
+  445/tcp  open  microsoft-ds
+  980/tcp  open  unknown ---> samba
+  3306/tcp open  mysql
+  5801/tcp open  vnc-http-1
+  5901/tcp open  vnc-1
+  6001/tcp open  X11:1
+
++ centos 기본설정
+   root 계정으로 작업
+
+   vi /etc/selinux/config
+      SELINUX=enforcing 부분을 SELINUX=disabled 수정함
+      서버 리부팅후 적용됨
+
+   vi /etc/group
+      wheel:x:10:root,계정명 (su실행가능하게할 계정명)
+
+   chown root.wheel /bin/su
+   chmod 4750 /bin/su
+   chattr +i /bin/su
+   chmod 100 /usr/bin/gcc /usr/bin/g++
+   chattr +i /usr/bin/gcc /usr/bin/g++
+
+   chmod 750 /usr/sbin/useradd
+   chmod 750 /usr/bin/top
+   chmod 750 /sbin/fdisk
+   chmod 750 /sbin/mkfs*
+   chmod 750 /sbin/fsck*
+   chmod 750  /bin/mount
+   chmod 750  /bin/umount
+   chmod 750  /bin/su
+   chmod 750  /bin/cgexec
+   chmod 750  /sbin/unix_chkpwd
+   chmod 750  /sbin/pam_timestamp_check
+   chmod 750  /usr/bin/passwd
+   chmod 750  /usr/bin/gpasswd
+   chmod 750  /usr/bin/newgrp
+   chmod 750  /usr/bin/chage
+   chmod 750  /usr/bin/chsh
+   chmod 750  /usr/bin/chfn
+   chmod 750  /usr/libexec/pt_chown
+   chmod 750  /usr/libexec/openssh/ssh-keysign
+   chmod 750  /usr/sbin/usernetctl
+   chmod 100 /bin/ping
+   chmod 100 /bin/ping6
+
+   chattr +i  /usr/sbin/useradd
+   chattr +i  /usr/bin/top
+   chattr +i  /sbin/fdisk
+   chattr +i  /sbin/mkfs*
+   chattr +i  /sbin/fsck*
+
+   chmod 750  /usr/bin/sudoedit
+   chmod 750  /usr/bin/sudo
+
++ vim 관련
+ - vim utf-8 설정
+    /etc/skel 에 .vimrc 추가
+    set fileencodings = utf-8, eun-kr
+    이미생성된계정은 계정 home폴더에 위의파일과 내용을 넣어놓고 재로그인
+
+ - vim tips about replace ^M
+    :%s/\r//g                   : Delete DOS returns ^M
+    # Is your Text File jumbled onto one line? use following
+    :%s/\r/\r/g                 : Turn DOS returns ^M into real returns
+    :%s=  *$==                  : delete end of line blanks
+    :%s= \+$==                  : Same thing
+    :%s#\s*\r\?$##              : Clean both trailing spaces AND DOS returns
+    :%s#\s*\r*$##               : same thing
+    # deleting empty lines
+    :%s/^\n\{3}//               : delete blocks of 3 empty lines
+    :%s/^\n\+/\r/               : compressing empty lines
+
++ 32bit 64bit 구분
+   getconf LONG_BIT
+
++ 특정계정만 su 가능하게
+  vi /etc/pam.d/su
+  #auth required pam_wheel_so use_uid 주석제거
+  vi /etc/group
+  wheel:x:10:root,계정명
+
++ samba 접속시 사용하는 포트
+  UDP: 135, 137, 138
+  TCP: 135, 139, 445
+
++ Ping 공격 대응
+  # echo 1 >/proc/sys/net/ipv4/icmp_echo_ignore_all --> enable ping
+  # echo 0 >/proc/sys/net/ipv4/icmp_echo_ignore_all --> disable ping
+
++ 프로세스 확인 
+  ps -e | grep httpd >> 프로세스중 httpd 네임검색 
+  ps -a | grep http >> 프로세스중 http 네임검색
+  ps -ef | grep named >> 프로세스중 named 검색
+
++ 도메인 및 ip확인
+  nslookup
+
++ rpm 패키지 설치유무 출력
+  rpm -qa | grep name
+  rpm -qa | grep bind*
+
++ 파일명령
+  for i in *_in* ; do cp -f $i `echo "./"$i | sed -n -e 's/\([A-Za-z0-9]*\)\(\/\)\([A-Za-z0-9]*\)*\(_in\)*\([A-Za-z0-9]\)*/\1\2\3/p'`;done
+  설명 : 파일명중 _in이 들어간파일을 _in을 제외한 네임으로 파일을 복사한다.
+
++ telnet root 가능하게
+  /etc/securetty 파일을 다른 이름으로 변경.
+
++ 보안관련 SELinux 설정및 참조(다른곳에 문제가 없는데  썸네일생성 않되는 경우)
+  http://blog.naver.com/psy909/140059049926
+
+  selinux 보안관련 웹접속시 문제시될때
+    restorecon -R -v '/home/nano/www'
+
++ 운영체제 확인 (커널버젼및 배포판 버젼 확인)
+ - # uname -a (커널 정보 및 시간 등을 표시)
+ - # uname -r (커널버젼만 표시)
+ - # cat /etc/redhat-release (리눅스의 배포판 이름표시)
+ - # cat /proc/version (운영체제명, 커널버전, gcc컴파일버전, 생선한 날짜 등의 상세한정보 표시)
+
++ telnet euc-kr 사용
+ - /etc/sysconfig/i18n
+   LANG="ko_KR.eucKR"
+   SUPPORTED="ko_KR.UTF-8:ko_KR:ko"
+   SYSFONT="latarcyrheb-sun16"
+
++ manpage euc-kr 사용
+ - /etc/man.config
+   TROFF groff -Tps -man
+   NROFF nroff -c -mandoc
+   EQN /usr/bin/geqn -Tps
+   NEQN /usr/bin/geqn -Tkorean
+   TBL /usr/bin/gtbl
+   # COL /usr/bin/col
+   REFER /usr/bin/grefer
+   PIC /usr/bin/gpic
+   VGRIND
+   GRAP
+   PAGER /usr/bin/less -isr
+   CAT /bin/cat
+
++ 터미널 폴더색 출력색 바꾸기 (최하단부에 삽입)
+ - /etc/bashrc
+   LS_COLORS="no=00:fi=00:di=01;34:ln=01;36:pi=40;33:so=01;35:bd=40;33;01:cd=40;33;01:or=01;05;37;41:mi=01;05;37;41:ex=01;32:*.cmd=01;32:*.exe=01;32:*.com=01;32:*.btm=01;32:*.bat=01;32:*.sh=01;32:*.csh=01;32:*.tar=01;31:*.tgz=01;31:*.arj=01;31:*.taz=01;31:*.lzh=01;31:*.zip=01;31:*.z=01;31:*.Z=01;31:*.gz=01;31:*.bz2=01;31:*.bz=01;31:*.tz=01;31:*.rpm=01;31:*.cpio=01;31:*.jpg=01;35:*.gif=01;35:*.bmp=01;35:*.xbm=01;35:*.xpm=01;35:*.png=01;35:*.tif=01;35:"
+
++ centOS 5.4 install after
+  vi /etc/yum.repos.d/CentOS-Media.repo
+  Modify it to enabled=0
+  yum -v update --disablerepo=contrib
+
++ MYSQL
+  create database DB명;
+  GRANT ALL PRIVILEGES ON DB명.* to 계정명@localhost IDENTIFIED BY '비번' WITH GRANT OPTION;
+  alter database DB명 character set utf8 collate utf8_general_ci;
+  flush privileges;
+
++ 계정생성시 기본 설정 및 폴더 
+  /etc/skel 에 www(혹은 자신이 정한 웹폴더) 추가 
+
++ shell script
+ - adduser <-- permission 700
+    File Name : adduser
+    #!/bin/bash
+    # Usage : ./adduser id password
+
+    if useradd $1
+    then
         echo $2 | passwd --stdin $1
         chmod 711 /home/$1
 
@@ -542,7 +202,6 @@ then
         echo "flush privileges;" >> /tmp/mysql_dbusersetup_temp
         mysql -u root -plostship mysql < /tmp/mysql_dbusersetup_temp
         rm -f /tmp/mysql_dbusersetup_temp
-
 
         #httpd virtual host
         echo " " >> /etc/httpd/conf/httpd.conf
@@ -555,19 +214,18 @@ then
         service httpd restart
 
         exit 0
-else
+    else
         echo "User $1 already exist !!"
         exit 1
-fi
-#######################
+    fi
 
-######## /root/userdrop <-- 파일추가 700권한  #######
-#File Name : userdrop
-#!/bin/bash
-# Usage : ./userdrop id
+ - userdrop <-- permission 700
+    #File Name : userdrop
+    #!/bin/bash
+    # Usage : ./userdrop id
 
-if userdel -r $1
-then
+    if userdel -r $1
+    then
         #mysql user drop
         touch /tmp/mysql_dbusersetup_temp
         echo "drop database $1;" >> /tmp/mysql_dbusersetup_temp
@@ -582,223 +240,463 @@ then
         echo "remove /etc/httpd/conf/httpd.conf virtual host!!"
 
         exit 0
-else
+    else
         echo "User $1 already remove !!"
         exit 1
-fi
-######################################################
+    fi
 
-==================================
+ - backup <-- permission 700
+    #/bin/bash
+
+    # Array set svc = (["folder & id"]="database password" ....]
+    declare -A svc=(["council"]="council" ["ijob"]="ijob" ["ccart"]="ccart")
+
+    #find backupfile -7days remove file [-ctime +number] [-cmin +number : miniute]
+    find /root/backup -type f -ctime +7 -exec rm {} \;
+
+    #loop svc => key and backup
+    for key in ${!svc[@]}; do
+        now=$(date +"%Y%m%d%H%M%S")
+        mysqldump -u$key -p${svc[$key]} $key > /root/backup/$key/$now.sql
+        tar cfzp /root/backup/$key/$now.tar.gz -C /home/$key/www .
+    done
+
++ Command
+  - systemctl list-unit-files | grep enable  (실행중인 서비스 리스트: centos 7)
+
+//// Service 관련 //////
++ Apache
+ - 설치
+   yum install httpd
+
+ - PHP 연동
+   /etc/httpd/conf/httpd.conf - LoadModule php5_module modules/libphp5.so 
+   AddType application/x-httpd-php .php .php3 .php4 .php5 .html .htm .inc 
+   DirectoryIndex index.html index.htm index.php
+
+ - 기본정보
+   /etc/httpd/conf/httpd.conf >> apache 설정파일 위치
+   service httpd start >> apache 시작 (start,restart,stop)
+ - 403 에러관련
+   chcon -R -t httpd_user_content_t /var/www/html >> 링크 손상시 재연결및 연결
+   setenforce 0 >> 403 에러날때.
+ - selinux 관련 403 처리방법
+   setsebool -P httpd_enable_homedirs on
+   chcon -R -t httpd_sys_content_t /home/
+   chcon -R -t httpd_sys_rw_content_t /home/
+
+ - /etc/httpd/conf/httpd.conf 설정
+   DocumentRoot "/var/www/html" --> 주석처리
+   DirectoryIndex index.html index.html.var index.htm index.php -->이렇게 수정
+   NameVirtualHost *:80 --> 주석제거
+   <VirtualHost *:80>
+       ServerAdmin test0@test.com
+       DocumentRoot /home/test0/www/
+       ServerName test0.test.com
+       ErrorLog logs/blueriver-error_log
+       CustomLog logs/blueriver-access_log common
+   </VirtualHost>
+   <VirtualHost *:80>
+       ServerAdmin test1@test.com
+       DocumentRoot /home/test1/www/
+       ServerName test1.test.com
+       ErrorLog logs/kernul-error_log
+       CustomLog logs/kernul-access_log common
+   </VirtualHost>
+
++ PHP
+ - 설치
+   yum install php php-devel php-pear php-mysql php-mbstring php-gd php-imap php-odbc php-xmlrpc php-xml
+   cd /etc 
+   cp -p php.ini php.ini_orgn 
+
+ - 기본정보
+   /etc/php.ini
+   short_open_tag = On 
+   allow_call_time_pass_reference = On 
+   error_reporting = E_ALL & ~E_NOTICE & ~E_DEPRECATED & ~E_USER_DEPRECATED 
+   display_errors = On 
+   display_startup_errors = On 
+   register_globals = On 
+   register_long_arrays = Off 
+   magic_quotes_gpc = On 
+   magic_quotes_runtime = Off 
+   date.timezone = "Asia/Seoul"
+
+ - apache 관련 설정 [/etc/httpd/conf.d/php.conf 파일수정]
+   AddType application/x-httpd-php .php .htm .html --> 없을 경우 추가
+ - zend optimizer 설치
+   wget http://www.atomicorp.com/installers/atomic
+   sh atomic
+   yum search zend optimizer --> 검색해서 나온결과중 eaccelerator 로설치.. 혹은 문구가 나오는것 살펴보고 설치
+   yum -y install php-eaccelerator.i686
+ - gd 설치
+   yum install httpd httpd-devel
+   yum install php php-devel php-mbstring php-mysql php-gd
+   yum install mysql mysql-server mysql-devel
+
++ DNS
+ - 기본설정
+  포트 53오픈 tcp,udp
+  /etc/resolv.conf >> dns 기본설정 관련 파일
+  /var/named/chroot/var/named/ >> dns의 zone(정방향), rev(역방향) 파일위치
+  service named start >> dns 시작 (start,restart,stop,reload)
+  grep named /var/log/messages >> dns 로그확인
+  vi /etc/sysconfig/iptables >> 방화벽 규칙 설정 
+  service iptables (start,restart,stop,status) >> 방화벽 시작및 상태 보기
+
+ - link 파일 생성
+   ls -s /var/named/chroot/var/named/test.com.zone /var/named/test.com.zone
+   ln -s /var/named/chroot/var/named/test.com.zone /var/named/test.com.zone
+
+ - CENTOS 6.3 기준
+   /etc/named.conf
+     options {
+          //listen-on port 53 { 127.0.0.1; };
+          //listen-on port 53 {192.168.10.44;};
+          //listen-on-v6 port 53 { ::1; };
+          listen-on port 53 { any; };
+          directory       "/var/named";
+          dump-file       "/var/named/data/cache_dump.db";
+          statistics-file "/var/named/data/named_stats.txt";
+          memstatistics-file "/var/named/data/named_mem_stats.txt";
+          allow-query     { any; };
+          recursion yes;
+
+          dnssec-enable yes;
+          dnssec-validation yes;
+          dnssec-lookaside auto;
+
+          /* Path to ISC DLV key */
+          bindkeys-file "/etc/named.iscdlv.key";
+
+          managed-keys-directory "/var/named/dynamic";
+     };
+
+   /etc/host.conf
+      multi on
+
+   /etc/hosts  ===
+      127.0.0.1 test.com localhost
+      220.83.111.111 ns.test.com ns
+
+   /etc/resolv.conf
+      # Generated by NetworkManager
+      #domain lan
+      #search lan test.com
+      domain test.com
+      serarch test.com
+      nameserver 192.168.10.44
+      nameserver 168.126.63.1
+      nameserver 168.126.63.2
+
+   /etc/named.rfc1912.zones (기존라인 모두 주석처리후 추가라인)
+      zone "test.com" IN {
+         type master;
+         file "test.com.zone";
+         allow-update { none; };
+      };
+
+   /etc/sysconfig/network
+      NETWORKING=yes
+      NETWORKING_IPV6=no
+      #HOSTNAME=localhost.localdomain
+      HOSTNAME=lostship
+      DOMAINNAME=test.com
+
+   /var/named/test.com.zone
+      심볼릭링크파일이며 실제파일은 /var/named/chroot/var/named/test.com 에 존재
+      $TTL 86400
+
+      @     IN      SOA     ns.test.com.   root.test.com. (
+            2012101901      ;       Serial
+            43200           ;       Refresh
+            3600            ;       Retry
+            3600000         ;       Expire
+            2592000 )       ;       Minimum
+
+      ;     Define the nameservers and the mail servers
+            IN      NS      ns.test.com.
+      ;     IN      MX  10  mail.test.com.
+            IN      A       220.83.111.111
+
+      ;localhost IN A 127.0.0.1
+            ns      IN      A       220.83.111.111
+            www     IN      CNAME   @
+            *       IN      CNAME   ns
+
+      ;mail    IN      A       220.83.111.111
+
+   /var/named/named.ca
+      파일 복사및 퍼미션은 644, 소유자는 root:named로 
+      cp /var/named/named.ca /var/named/chroot/var/named/named.ca
+
+ - CENTOS 5.X 기준
+   
+   vi /var/named/chroot/etc/named.conf
+      zone "xxx.net." IN {
+         type master;
+         file "xxx.net.db";
+         allow-update { none; }
+      };
+
+      zone "0.168.192.in-addr.arpa" IN {
+         type master;
+         file "0.168.192.db";
+         allow-update { none; };
+      };
+
+      zone "62.155.121.in-addr.arpa" IN {
+         type master;
+         file "62.155.121.db";
+         allow-update { none; };
+      };
+
+   vi /etc/named.caching-nameserver.conf
+      listen-on port 53 { any; };
+      query-source port 53;
+      //query-source-v6 port 53;
+      allow-query { any; };
+      //allow-query-cache { localhost; };
+
+   vi /etc/hosts
+      127.0.0.1	lostlhost.localdomain localhost
+      121.155.62.31	xxx.net xxx
+
+   vi /etc/resolv.conf
+      search localhost
+      nameserver 192.168.0.20
+      nameserver 168.126.63.1
+      nameserver 168.126.63.2
+
+   vi /etc/sysconfig/network
+      HOSTNAME=xxx 
+      DOMAINNAME=xxx.net
+
+   vi /var/named/chroot/var/named/xxx.net.db
+        $TTL	86400
+        @	IN	SOA	ns.xxx.net. root.xxx.net. (
+        				2010050811	; serial
+        				4H		; refresh
+        				15M		; retry
+        				1W		; expiry
+        				1D )		; minimum
+        	IN 	NS	ns.xxx.net.
+        	IN 	A	121.155.62.31
+        www	IN 	A	121.155.62.31
+        ns	IN 	CNAME	@
+        redmine IN 	CNAME	ns
+        *	IN 	CNAME	ns
+        31	IN 	PTR	thedream.net.
+
+   vi /var/named/chroot/var/named/0.168.192.db
+        $TTL	86400
+        @	IN	SOA	ns.xxx.net. root.xxx.net. (
+        				2010050812	; serial
+        				3H		; refresh
+        				15M		; retry
+        				1W		; expiry
+        				1D )		; minimum
+        	IN	NS	ns.xxx.net.
+        	IN	A	192.168.0.20
+        ns	IN	A	192.168.0.20
+        20	IN	PTR	thedream.net.
+
+   vi /var/named/chroot/var/named/62.155.121.db
+        $TTL	86400
+        @	IN	SOA	ns.thedream.net. root.thedream.net. (
+        				2010051009	; serial
+        				3H		; refresh
+        				15M		; retry
+        				1W		; expiry
+        				1D )		; minimum
+        	IN	NS	ns.thedream.net.
+        	IN	A	121.155.62.31
+        ns	IN	A	121.155.62.31
+        31	IN	PTR	thedream.net.
+
++ SENDMAIL
+ - setting support info link
+   http://www.superuser.co.kr/home/lecture/?leccode=10471
+   http://www.superuser.co.kr/home/search/index.php?textview=1&select=&keyword=centos+sendmail
+   http://blog.empas.com/zeroscience/24988105
+
+ - 설정 정보
+   - /etc/mail/sendmail.mc 편집
+     dnl TRUST_AUTH_MECH(`EXTERNAL DIGEST-MD5 CRAM-MD5 LOGIN PLAIN')dnl
+     dnl define(`confAUTH_MECHANISMS', `EXTERNAL GSSAPI DIGEST-MD5 CRAM-MD5LOGIN PLAIN')dnl 
+     --> TRUST_AUTH_MECH(`EXTERNAL DIGEST-MD5 CRAM-MD5 LOGIN PLAIN')dnl
+         define(`confAUTH_MECHANISMS', `EXTERNAL GSSAPI DIGEST-MD5 CRAM-MD5 LOGIN PLAIN')dnl
+     DAEMON_OPTIONS(`Port=smtp,Addr=127.0.0.1, Name=MTA')dnl
+     --> dnl DAEMON_OPTIONS(`Port=smtp,Addr=127.0.0.1, Name=MTA')dnl 
+
+   - m4 /etc/mail/sendmail.mc > /etc/mail/sendmail.cf
+
+   - /etc/mail/access 편집
+     도메인명 탭키구분 RELAY
+     test.com       RELAY
+
+   - makemap hash /etc/mail/access.db < /etc/mail/access
+
+   - /etc/mail/local-host-names 편집
+     도메인명
+     test.com
+
+   - /etc/mail/virtusertable 파일 이용한 가상 유저 셋팅
+     webmaster@test.com           test0
+     webmaster@test.com           test1
+
+   - makemap hash virtusertable < virtusertable
+
++ 방화벽 제어
+  system-config-securitylevel
+
++ 텔넷 설정
+ - 텔넷 설치여부 확인
+   # rpm -qa|grep telnet
+     telnet-0.17-31.EL4.2
+     없을경우
+   # yum install telnet
+     업데그레이드
+   # yum -y upgrade telnet-server
+
+ - 텔넷 설정파일 수정(disable=no)
+   # vi /etc/xinetd.d/telnet
+   service telnet
+   {
+           flags               =        REUSE
+           socket_type     =        stream
+           wait                =        no
+           user                =        root
+           server              =        /usr/sbin/in.telnetd
+           log_on_failure  +=       USERID
+           disable            =        no
+   }
+
+ - 텔넷 서비스 재시작
+   #/etc/init.d/xinetd restart
+
+ - telnet utf-8 설정
+   /etc/sysconfig/i18n 편집
+   LANG="en_US.UTF-8"
+   SUPPPORTED="en_US.UTF-8:en_US:en:ko_KR.UTF-8:ko_KR:ko"
+   SYSFONT="latarcyrheb-sun16"
+
++ 방화벽
+ - 방화벽 해제
+   vi /etc/sysconfig/iptables
+   # Firewall configuration written by lokkit
+   # Manual customization of this file is not recommended.
+   # Note: ifup-post will punch the current nameservers through the
+   #       firewall; such entries will *not* be listed here.
+   *filter
+   :INPUT ACCEPT [0:0]
+   :FORWARD ACCEPT [0:0]
+   :OUTPUT ACCEPT [0:0]
+   :RH-Lokkit-0-50-INPUT - [0:0]
+   -A INPUT -j RH-Lokkit-0-50-INPUT
+   -A FORWARD -j RH-Lokkit-0-50-INPUT
+   .
+   .
+   -A RH-Lokkit-0-50-INPUT -p tcp -m tcp --dport 23 --syn -j ACCEPT &lt;- 추가
+   .
+   .
+   COMMIT
+
+ - 방화벽 재시작
+   # /etc/init.d/iptables restart
+
++ samba
+ - smbstatus (상태확인)
+
++ MYSQL
+ - vi /etc/my.cnf
+   [mysqld]
+   default-character-set=utf8
+   old_passwords=1
+   init_connect = "SET collation_connection = utf8_general_ci"
+   init_connect='set names binary'
+   character-set-server=utf8
+   default-collation=utf8_general_ci
+   skip-character-set-client-handshake
+   character-set-filesystem=utf8
+   default-character-set=utf8
+
+   [mysqld_safe]
+   log-error=/var/log/mysqld.log
+   pid-file=/var/run/mysqld/mysqld.pid
+
+   [mysql]
+   default-character-set=utf8
+
+   [client]
+   default-character-set=utf8
+
+   [mysqldump]
+   default-character-set=utf8
 
 
-========== vsftpd 설정  centos6.3 (SSH는 상위폴더로 이동되기에 사용블럭시킴)  ============
-## sftp disable ##
-vi /etc/ssh/sshd_config
-Subsystem sftp /usr/libexec/openssh/sftp-server <-- 주석처리
-servier sshd restart 
+ - CENTOS 6.3
+   # cp /usr/share/mysql/my-huge.cnf /etc/my.cnf
+   ------- 용량별 복사파일 -------
+   my-huge.cnf      1~2G
+   my-large.cnf      512M
+   my-medium.cnf   128M~ 256M
+   my-small.cnf      64M 이하
+   --------------------
+   * UTF8 인코딩 설정
+   # vi my.cnf
 
-## vsftp 사용설정 ##
-vi /etc/vsftpd/vsftpd.conf
-chroot_local_user = YES
-chroot_list_enable = YES
-chroot_list_file = /etc/vsftpd/chroot_list
+   아래 내용을 추가한다.
+   [client]
+   password        = your_password
+   default-character-set   = utf8
 
-vi /etc/vsftpd/chroot_list (파일이 없으면 새로생성저장)
-root <-- 추가
+   [mysqld]
+   init_connect = SET collation_connection = utf8_general_ci
+   init_connect = SET NAMES utf8
+   default-character-set = utf8
+   character-set-server = utf8
+   collation-server = utf8_general_ci
 
-===============================================================================
+   [mysqldump]
+   default-character-set=utf8
 
+   [mysql]
+   default-character-set=utf8
 
-========== centos 인스톨후 기본설정 =================
-&gt;&gt;root 계정으로 작업
++ VSFTP (CENTOS 6.3)
+   ## sftp disable ##
+   vi /etc/ssh/sshd_config
+   Subsystem sftp /usr/libexec/openssh/sftp-server <-- 주석처리
+   servier sshd restart 
 
-vi /etc/selinux/config
-SELINUX=enforcing 부분을 SELINUX=disabled 수정함
-서버 리부팅후 적용됨
+   ## vsftp 사용설정 ##
+   vi /etc/vsftpd/vsftpd.conf
+   chroot_local_user = YES
+   chroot_list_enable = YES
+   chroot_list_file = /etc/vsftpd/chroot_list
 
-vi /etc/group
-wheel:x:10:root,계정명 (su실행가능하게할 계정명)
-chown root.wheel /bin/su
-chmod 4750 /bin/su
-chattr +i /bin/su
+   vi /etc/vsftpd/chroot_list (파일이 없으면 새로생성저장)
+   root <-- 추가
 
++ sshd root 로그인
+  vi /etc/ssh/sshd_config
+  #permitRootLogin yes 주석제거 및 변경 permitRootLogin no
+  service sshd restart
 
-chmod 100 /usr/bin/gcc /usr/bin/g++
-chattr +i /usr/bin/gcc /usr/bin/g++
-
-chmod 750 /usr/sbin/useradd
-chmod 750 /usr/bin/top
-chmod 750 /sbin/fdisk
-chmod 750 /sbin/mkfs*
-chmod 750 /sbin/fsck*
-chmod 750  /bin/mount
-chmod 750  /bin/umount
-chmod 750  /bin/su
-chmod 750  /bin/cgexec
-chmod 750  /sbin/unix_chkpwd
-chmod 750  /sbin/pam_timestamp_check
-chmod 750  /usr/bin/passwd
-chmod 750  /usr/bin/gpasswd
-chmod 750  /usr/bin/newgrp
-chmod 750  /usr/bin/chage
-chmod 750  /usr/bin/chsh
-chmod 750  /usr/bin/chfn
-chmod 750  /usr/libexec/pt_chown
-chmod 750  /usr/libexec/openssh/ssh-keysign
-chmod 750  /usr/sbin/usernetctl
-chmod 100 /bin/ping
-chmod 100 /bin/ping6
-
-chattr +i  /usr/sbin/useradd
-chattr +i  /usr/bin/top
-chattr +i  /sbin/fdisk
-chattr +i  /sbin/mkfs*
-chattr +i  /sbin/fsck*
-
-chmod 750  /usr/bin/sudoedit
-chmod 750  /usr/bin/sudo
-=========================================================================
-
-====== telnet utf-8 설정 =====
-/etc/sysconfig/i18n 편집
-LANG="en_US.UTF-8"
-SUPPPORTED="en_US.UTF-8:en_US:en:ko_KR.UTF-8:ko_KR:ko"
-SYSFONT="latarcyrheb-sun16"
-=============================
-
-====== vim utf-8 설정 =======
-/etc/skel 에 .vimrc 추가
-set fileencodings = utf-8, eun-kr
-
-이미생성된계정은 계정 home폴더에 위의파일과 내용을 넣어놓고
-재로그인 하면 됨.
-=============================
-
-----------vim tips about replace ^M--------------------------------------
-:%s/\r//g                   : Delete DOS returns ^M
-# Is your Text File jumbled onto one line? use following
-:%s/\r/\r/g                 : Turn DOS returns ^M into real returns
-:%s=  *$==                  : delete end of line blanks
-:%s= \+$==                  : Same thing
-:%s#\s*\r\?$##              : Clean both trailing spaces AND DOS returns
-:%s#\s*\r*$##               : same thing
-# deleting empty lines
-:%s/^\n\{3}//               : delete blocks of 3 empty lines
-:%s/^\n\+/\r/               : compressing empty lines
--------------------------------------------------------------------------
-
-
-
-#selinux 보안관련 웹접속시 걸리적 거릴때..
-restorecon -R -v '/home/nano/www'
-
-
-
-update user set Select_priv='N',Insert_priv='N',Update_priv='N',Delete_priv='N',Create_priv='N',Drop_priv='N',Reload_priv='N',Shutdown_priv='N',Process_priv='N',File_priv='N',Grant_priv='N',References_priv='N',Index_priv='N',Alter_priv='N',Show_db_priv='N',Super_priv='N',Create_tmp_table_priv='N',Lock_tables_priv='N',Execute_priv='N',Repl_slave_priv='N',Repl_client_priv='N',Create_view_priv='N',Show_view_priv='N',Create_routine_priv='N',Alter_routine_priv='N',Create_user_priv='N',Event_priv='N',Trigger_priv='N' where User='survey';
-
-#32bit 64bit 구분
-getconf LONG_BIT
-
-#excel download
-elseif(preg_match("/(xls|xlsx)/i",$rfn)) {
-header("content-type: application/x-msexcel");
-header("content-length: ".filesize("$path/$fpos"));
-header("content-disposition: attachment; filename=".iconv("UTF-8","EUC-KR",$rfn));
-header("content-description: PHP/INTERBASE Generated Data");
-
-#data 부분 iconv적용??
-
-
-#virtual box 사용시
-vi /boot/grub/grub.conf   ~~quiet vga=0x317추가
-
-
-#아파치 설치 및 php 설정관련
-- 아파치 설치
-yum install httpd
-- php와 관련 모듈을 설치.
-yum install php php-devel php-pear php-mysql php-mbstring php-gd php-imap php-odbc php-xmlrpc php-xml
-- php 설정 변경
-  기본적인 설정을 아래와 같이 변경해 줍니다.
-cd /etc 
-cp -p php.ini php.ini_orgn 
-
-vi php.ini 
-short_open_tag = On 
-allow_call_time_pass_reference = On 
-error_reporting = E_ALL & ~E_NOTICE & ~E_DEPRECATED & ~E_USER_DEPRECATED 
-display_errors = On 
-display_startup_errors = On 
-register_globals = On 
-register_long_arrays = Off 
-magic_quotes_gpc = On 
-magic_quotes_runtime = Off 
-date.timezone = "Asia/Seoul"
-
-- Apache에 php 연동
-/etc/httpd/conf/httpd.conf - LoadModule php5_module modules/libphp5.so 
-AddType application/x-httpd-php .php .php3 .php4 .php5 .html .htm .inc 
-DirectoryIndex index.html index.htm index.php
-
-
-#my.cnf 
-
-[mysql]
-default-character-set = utf8
-
-[mysqld]
-init_connect = "SET collation_connection = utf8_general_ci"
-init_connect = "SET NAMES binary"
-default-character-set = utf8
-character-set-server = utf8
-collation-server = utf8_general_ci
-
-[client]
-default-character-set   = utf8
-
-[mysqldump]
-default-character-set=utf8
-
-
-
-#telnet 관련 root 관련설정
-vi /etc/ssh/sshd_config
-#permitRootLogin yes 주석제거 및 변경 permitRootLogin no
-service sshd restart
-
--특정계정만 su 가능하게
-vi /etc/pam.d/su
-#auth required pam_wheel_so use_uid 주석제거
-vi /etc/group
-wheel:x:10:root,계정명
-
-#sftp 관련 폴더 권한설정
-chmod 711 /home
-chmod 711 /etc
-chmod 711 /
-chmod 711 /usr
-chmod 711 /usr/local
-chmod 711 /proc
-chmod 711 /mnt
-chmod 711 /opt
-chmod 711 /misc
-chmod 711 /dev
-chmod 711 /bin
-chmod 711 /boot
-chmod 711 /www
-chmod 711 /var
-
-
-# virtual box  관련
-네트워크 - NET : 반가상
-포트포워딩 : 22,80 (22번은 외부에서 접근안되므로 다른포트 지정 후 포워딩은 22번으로)
-윈도우내에서 22번관련 사용될 새로운 포트 방화벽 해제
-공유기에서 새로운포트 를 해당 pc에 포워딩
-
--vbox 백그라운드로 실행관련
-cd C:\Program Files\Oracle\VirtualBox
-VBoxManage startvm "centos" --type headless
-
-===== centos 7 관련 ======
-실행중인 서비스 리스트
-systemctl list-unit-files | grep enable 
++ sftp 관련 폴더 권한설정
+  chmod 711 /home
+  chmod 711 /etc
+  chmod 711 /
+  chmod 711 /usr
+  chmod 711 /usr/local
+  chmod 711 /proc
+  chmod 711 /mnt
+  chmod 711 /opt
+  chmod 711 /misc
+  chmod 711 /dev
+  chmod 711 /bin
+  chmod 711 /boot
+  chmod 711 /www
+  chmod 711 /var
