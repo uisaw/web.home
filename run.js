@@ -65,7 +65,7 @@ window.addEventListener("load", function(event) {
 								let nodes = Array.from( li.closest('ul').children ); // get array
 								let index = nodes.indexOf(li); 
 								
-								console.log(li);
+								console.log(li[0]);
 								/*
 								li.forEach(function(e){
 									e.toggle('on',false);
