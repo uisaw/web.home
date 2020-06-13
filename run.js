@@ -61,11 +61,10 @@ window.addEventListener("load", function(event) {
 						let ltab = document.querySelectorAll(".link_tab");
 						ltab.forEach(function(ele){
 							ele.addEventListener('click', evt =>{							  
-								let li = ele.closest('li'); // get reference by using closest
-								let nodes = Array.from( li.closest('ul').children ); // get array
+								let li = ele.closest('li');
+								let nodes = Array.from( li.closest('ul').children );
 								let index = nodes.indexOf(li); 
-								
-								console.log(li[0]);
+								console.log(nodes[1]);
 								/*
 								li.forEach(function(e){
 									e.toggle('on',false);
