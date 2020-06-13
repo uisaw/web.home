@@ -63,14 +63,12 @@ window.addEventListener("load", function(event) {
 							ele.addEventListener('click', evt =>{							  
 								let li = ele.closest('li');
 								let nodes = Array.from( li.closest('ul').children );
-								let index = nodes.indexOf(li); 
-								console.log(nodes[1]);
-								/*
-								li.forEach(function(e){
+								let index = nodes.indexOf(li);
+
+								nodes.forEach(function(e){
 									e.toggle('on',false);
 								});
-								li[index].toggle('on',true);
-								*/
+								nodes[index].toggle('on',true);
 
 
 								/*
