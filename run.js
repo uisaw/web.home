@@ -58,6 +58,8 @@ window.addEventListener("load", function(event) {
 					if (/(\.htm|\.html)/.test(lnk)){
 						obj.innerHTML = response.data;
 
+						alert('asdfasdf');
+
 						document.querySelectorAll(".link_tab").click(function(){
 							console.log('asdfasdf');
 						});
