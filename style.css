@@ -21,8 +21,8 @@ address, caption, cite, code, dfn, em, var {font-style:normal; font-weight:400;}
 .smenu > .item > .det > .link,.smenu > .item > .det > .down {display:block; color:#fff; text-decoration:none;}
 .smenu > .item > .det > .link:hover,.smenu > .item > .det > .down:hover {color:#00d10a;}
 .smenu > .item > .det > .page {position:absolute; top:0px; left:0px; width:100%; background-color:#fff; height:100%;}
-.pos {width:100% !important; position:relative !important; top:0 !important; left:0 !important; margin-top:0px !important; z-index:11;}
-.pos > .active {border:0px !important; position:fixed !important; top:0px;}
+.pos {width:100% !important; position:relative !important; top:0 !important; left:0 !important; margin-top:0px !important;}
+.pos > .active {border:0px !important; position:fixed !important; top:0px; z-index:11;}
 .pos > .active > .det {display:none !important;}
 .mtop {margin-top:60px;}
 .con {width:100%;}
