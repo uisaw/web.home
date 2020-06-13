@@ -70,10 +70,10 @@ window.addEventListener("load", function(event) {
 								});
 								nodes[index].classList.toggle('on',true);
 	
-								document.querySelectorAll("direction_time").forEach(function(e){
+								document.querySelectorAll(".direction_time").forEach(function(e){
 									e.classList.toggle('none',true);
 								});
-								document.querySelectorAll("direction_time")[index].classList.toggle('none',false);
+								document.querySelectorAll(".direction_time")[index].classList.toggle('none',false);
 
 
 							});
