@@ -64,11 +64,13 @@ window.addEventListener("load", function(event) {
 								let li = ele.closest('li'); // get reference by using closest
 								let nodes = Array.from( li.closest('ul').children ); // get array
 								let index = nodes.indexOf(li); 
-								console.log(index);
+								li.forEach(function(e){
+									e.toggle('on',false);
+								});
+								li[index].toggle('on',true);
+
 
 								/*
-
-
 								this.parentNode.parentNode.querySelectorAll("li").forEach(function(e){
 									if (e.classList.contains('on')){
 										e.classList.remove('on');
