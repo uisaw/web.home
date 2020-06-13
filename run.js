@@ -58,9 +58,34 @@ window.addEventListener("load", function(event) {
 					if (/(\.htm|\.html)/.test(lnk)){
 						obj.innerHTML = response.data;
 
-						document.querySelector(".link_tab").addEventListener('click', evt =>{
-							console.log('asdfasdf');
+						let obj = document.querySelectorAll(".link_tab");
+						obj.forEach(function(ele){
+							ele.addEventListener('click', evt =>{							  
+								let li = ele.closest('li'); // get reference by using closest
+								let nodes = Array.from( li.closest('ul').children ); // get array
+								let index = nodes.indexOf(li); 
+								console.log(index);
+
+								/*
+
+
+								this.parentNode.parentNode.querySelectorAll("li").forEach(function(e){
+									if (e.classList.contains('on')){
+										e.classList.remove('on');
+									};
+								});
+								this.parentNode.toggle('on',true);
+
+								document.querySelectorAll("direction_time").forEach(function(e){
+									e.toggle('none',true);
+								});
+								document.querySelectorAll("direction_time")[1].
+								*/
+
+
+							});
 						});
+						
 
 					}else {
 						data = response.data;
