@@ -50,7 +50,6 @@ window.addEventListener("load", function(event) {
 				let req = new XMLHttpRequest();
 				let obj = this.$el.querySelector(".con");
 				let lnk = event.target.getAttribute("href");
-
 				axios({
 					url: lnk,
 					method: 'GET',
@@ -92,6 +91,11 @@ window.addEventListener("load", function(event) {
 					link.click();
 					document.removeChild('a');
 				});
+			},
+			link_tab : function(){
+				let obj = this.items;
+				console.log(obj.innerHTML);
+			
 			}
 		}
 	})
