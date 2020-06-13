@@ -92,10 +92,11 @@ window.addEventListener("load", function(event) {
 					document.removeChild('a');
 				});
 			},
-			link_tab : function(){
+			link_tab : function(idx){
 				let obj = this.items;
-				console.log(obj.innerHTML);
-			
+				console.log(idx);
+
+				
 			}
 		}
 	})

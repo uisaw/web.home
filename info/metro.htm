@@ -5,13 +5,13 @@
 				<strong class="screen_out">요일별 탭 메뉴</strong>
 				<ul class="tab_time">
 					<li class="on">
-						<a href="#none" class="link_tab" @click="link_tab"><span class="ico_comm ico_time"></span>평일</a>
+						<a href="#none" class="link_tab" :href="link_tab(0)"><span class="ico_comm ico_time"></span>평일</a>
 					</li>
 					<li>
-						<a href="#none" class="link_tab" @click="link_tab"><span class="ico_comm ico_time"></span>토요일</a>
+						<a href="#none" class="link_tab" :href="link_tab(1)"><span class="ico_comm ico_time"></span>토요일</a>
 					</li>
 					<li>
-						<a href="#none" class="link_tab" @click="link_tab"><span class="ico_comm ico_time"></span>일요일 및 공휴일</a>
+						<a href="#none" class="link_tab" :href="link_tab(2)"><span class="ico_comm ico_time"></span>일요일 및 공휴일</a>
 					</li>
 				</ul>
 			</div>
