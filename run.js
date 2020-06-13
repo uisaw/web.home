@@ -62,28 +62,18 @@ window.addEventListener("load", function(event) {
 						ltab.forEach(function(ele){
 							ele.addEventListener('click', evt =>{							  
 								let li = ele.closest('li');
-								let nodes = Array.from( li.closest('ul').children );
+								let nodes = Array.from(li.closest('ul').children);
 								let index = nodes.indexOf(li);
 
 								nodes.forEach(function(e){
 									e.classList.toggle('on',false);
 								});
 								nodes[index].classList.toggle('on',true);
-
-
-								/*
-								this.parentNode.parentNode.querySelectorAll("li").forEach(function(e){
-									if (e.classList.contains('on')){
-										e.classList.remove('on');
-									};
-								});
-								this.parentNode.toggle('on',true);
-
+	
 								document.querySelectorAll("direction_time").forEach(function(e){
-									e.toggle('none',true);
+									e.classList.toggle('none',true);
 								});
-								document.querySelectorAll("direction_time")[1].
-								*/
+								document.querySelectorAll("direction_time")[index].classList.toggle('none',false);
 
 
 							});
