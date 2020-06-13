@@ -65,10 +65,10 @@ window.addEventListener("load", function(event) {
 								let nodes = Array.from( li.closest('ul').children );
 								let index = nodes.indexOf(li);
 
-								nodes.forEach(function(){
-									this.classList.toggle('on',false);
+								nodes.forEach(function(e){
+									e.classList.toggle('on',false);
 								});
-								nodes[index].classList.toggle('on',true);
+								//nodes[index].classList.toggle('on',true);
 
 
 								/*
