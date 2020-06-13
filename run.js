@@ -57,6 +57,11 @@ window.addEventListener("load", function(event) {
 				}).then((response) => {
 					if (/(\.htm|\.html)/.test(lnk)){
 						obj.innerHTML = response.data;
+
+						document.querySelector(".link_tab").click(function(){
+							console.log('asdfasdf');
+						});
+
 					}else {
 						data = response.data;
 						data = data.replace(/(<)/g,'&lt;');
@@ -91,12 +96,6 @@ window.addEventListener("load", function(event) {
 					link.click();
 					document.removeChild('a');
 				});
-			},
-			link_tab : function(idx){
-				let obj = this.items;
-				console.log(idx);
-
-				
 			}
 		}
 	})
