@@ -57,12 +57,12 @@ window.addEventListener("load", function(event) {
 				}).then((response) => {
 					if (/(\.htm|\.html)/.test(lnk)){
 						obj.innerHTML = response.data;
-
-						alert('asdfasdf');
-
+						console.log('asdfasdf');
+						/*
 						document.querySelectorAll(".link_tab").click(function(){
 							console.log('asdfasdf');
 						});
+						*/
 
 					}else {
 						data = response.data;
