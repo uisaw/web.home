@@ -59,7 +59,13 @@ window.addEventListener("load", function(event) {
 					if (/(\.htm|\.html)/.test(lnk)){
 						obj.innerHTML = response.data;
 					}else {
-						obj.innerHTML = '<div class="text">' + response.data.replace('<','&lt;').replace('>','&gt;').replace(/( )/g,'&nbsp;').replace(/(\t)/,'&nbsp; &nbsp; &nbsp;').replace(/(\n)/g,'<br />') + '</div>';
+						data = response.data;
+						data = data.replace(/(<)/g,'&lt;');
+						data = data.replace(/(>)/g,'&gt;');
+						data = data.replace(/( )/g,'&nbsp;');
+						data = data.replace(/(\t)/,'&nbsp; &nbsp; &nbsp;');
+						data = data.replace(/(\n)/g,'<br />');
+						obj.innerHTML = '<div class="text">' + data + '</div>';
 					}
 					this.menu_none = true;
 					this.smenu_none = false;
