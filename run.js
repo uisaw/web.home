@@ -66,9 +66,9 @@ window.addEventListener("load", function(event) {
 								let index = nodes.indexOf(li);
 
 								nodes.forEach(function(){
-									this.toggle('on',false);
+									this.classList.toggle('on',false);
 								});
-								nodes[index].toggle('on',true);
+								nodes[index].classList.toggle('on',true);
 
 
 								/*
