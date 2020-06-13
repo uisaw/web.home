@@ -58,8 +58,8 @@ window.addEventListener("load", function(event) {
 					if (/(\.htm|\.html)/.test(lnk)){
 						obj.innerHTML = response.data;
 
-						let obj = document.querySelectorAll(".link_tab");
-						obj.forEach(function(ele){
+						let ltab = document.querySelectorAll(".link_tab");
+						ltab.forEach(function(ele){
 							ele.addEventListener('click', evt =>{							  
 								let li = ele.closest('li'); // get reference by using closest
 								let nodes = Array.from( li.closest('ul').children ); // get array
