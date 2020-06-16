@@ -269,6 +269,9 @@
 + Apache
  - 설치
    yum install httpd
+ 
+ - 끊김없이 재시작
+   service httpd graceful (CentOS 기준 나머지 리눅는 httpd 서비스 gracefule 옵션 활용[apachectl -k graceful])
 
  - PHP 연동
    /etc/httpd/conf/httpd.conf - LoadModule php5_module modules/libphp5.so 
@@ -278,9 +281,11 @@
  - 기본정보
    /etc/httpd/conf/httpd.conf >> apache 설정파일 위치
    service httpd start >> apache 시작 (start,restart,stop)
+ 
  - 403 에러관련
    chcon -R -t httpd_user_content_t /var/www/html >> 링크 손상시 재연결및 연결
    setenforce 0 >> 403 에러날때.
+ 
  - selinux 관련 403 처리방법
    setsebool -P httpd_enable_homedirs on
    chcon -R -t httpd_sys_content_t /home/
