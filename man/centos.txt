@@ -375,7 +375,7 @@
    my-large.cnf      512M
    my-medium.cnf   128M~ 256M
    my-small.cnf      64M 이하
-   --------------------
+   --------------------------
    * UTF8 인코딩 설정
    # vi my.cnf
 
