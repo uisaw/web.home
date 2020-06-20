@@ -284,7 +284,8 @@
  
  - 403 에러관련
    chcon -R -t httpd_user_content_t /var/www/html >> 링크 손상시 재연결및 연결
-   setenforce 0 >> 403 에러날때.
+   chcon -R -t httpd_sys_content_t /home/test/www >> 403 계속 오류일때..
+   setenforce 0 >> 403 에러날때. (selinux 끄기)
  
  - selinux 관련 403 처리방법
    setsebool -P httpd_enable_homedirs on
