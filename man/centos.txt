@@ -317,7 +317,7 @@
    yum-config-manager --enable remi-php56
    yum install –enablerepo=remi –enablerepo=remi-php56 php php-bcmath php-cli php-common php-devel php-gd php-mbstring php-mysql php-odbc php-pdo php-process php-xml php-xmlrpc php-pear
    cd /etc 
-   cp -p php.ini php.ini_orgn 
+   cp -p php.ini php.ini_orgn
 
  - 기본정보
    /etc/php.ini
