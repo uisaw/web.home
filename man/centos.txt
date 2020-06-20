@@ -284,7 +284,6 @@
  
  - 403 에러관련
    chcon -R -t httpd_user_content_t /var/www/html >> 링크 손상시 재연결및 연결
-   chcon -R -t httpd_sys_content_t /home/test/www >> 403 계속 오류일때..
    setenforce 0 >> 403 에러날때. (selinux 끄기)
  
  - selinux 관련 403 처리방법
@@ -646,7 +645,14 @@
    SYSFONT="latarcyrheb-sun16"
 
 + 방화벽
- - 방화벽 해제
+ - 사용가능한 서비스 및 포트 출력
+   firewall-cmd --list-all
+ - 서비스 및 포트 등록
+   - firewall-cmd -
+   firewall-cmd --permanent --add-service=http
+   firewall-cmd --permanent --add-port=80/tcp
+
+   - iptables 활용 -
    vi /etc/sysconfig/iptables
    # Firewall configuration written by lokkit
    # Manual customization of this file is not recommended.
@@ -665,12 +671,21 @@
    .
    .
    COMMIT
+   ----------------
+
+ - 서비스 및 포트 제거
+   firewall-cmd --remove-service=http
+   firewall-cmd --remove-port=80/tcp
 
  - 방화벽 재시작
    # /etc/init.d/iptables restart
+   firewall-cmd --reload
 
  - 방화벽 제어
    system-config-securitylevel
+
+ - 방화벽 상태
+   firewall-cmd --state
 
 + samba
  - smbstatus (상태확인)
