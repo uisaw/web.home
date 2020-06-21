@@ -221,30 +221,30 @@
     fi
 
  - userdrop <-- permission 700
-    #File Name : userdrop
-    #!/bin/bash
-    # Usage : ./userdrop id
+   #File Name : userdrop
+   #!/bin/bash
+   # Usage : ./userdrop id
 
-    if userdel -r $1
-    then
-        #mysql user drop
-        touch /tmp/mysql_dbusersetup_temp
-        echo "drop database $1;" >> /tmp/mysql_dbusersetup_temp
-        echo "delete from db where user='$1';" >> /tmp/mysql_dbusersetup_temp
-        echo "delete from user where User='$1';" >> /tmp/mysql_dbusersetup_temp
-        echo "flush privileges;" >> /tmp/mysql_dbusersetup_temp
-        mysql -u root -plostship mysql < /tmp/mysql_dbusersetup_temp
-        rm -f /tmp/mysql_dbusersetup_temp
+   if userdel -r $1
+   then
+       #mysql user drop
+       touch /tmp/mysql_dbusersetup_temp
+       echo "drop database $1;" >> /tmp/mysql_dbusersetup_temp
+       echo "delete from db where user='$1';" >> /tmp/mysql_dbusersetup_temp
+       echo "delete from user where User='$1';" >> /tmp/mysql_dbusersetup_temp
+       echo "flush privileges;" >> /tmp/mysql_dbusersetup_temp
+       mysql -uroot -plostship mysql < /tmp/mysql_dbusersetup_temp
+       rm -f /tmp/mysql_dbusersetup_temp
 
+       #httpd virtual host
+       sed -z "s/\n\n<VirtualHost \*:80>\n     DocumentRoot \/home\/$1\/www\n     ServerName lostship\.tk\n     ServerAlias $1\.lostship\.tk\n     ErrorLog \/var\/log\/httpd\/http_$1\.log\n     CustomLog \/var\/log\/httpd\/http_$1_access\.log combined\n<\/VirtualHost>//g" -i /etc/httpd/conf.d/vhost.conf
 
-        #httpd virtual host
-        echo "remove /etc/httpd/conf/httpd.conf virtual host!!"
-
-        exit 0
-    else
-        echo "User $1 already remove !!"
-        exit 1
-    fi
+       service httpd graceful
+       exit 0
+   else
+       echo "User $1 already remove !!"
+       exit 1
+   fi
 
  - backup <-- permission 700
     #/bin/bash
