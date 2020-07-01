@@ -407,7 +407,7 @@
  - wget -qO- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.2/install.sh | bash  (nvm 설치) 
  - source ~/.bashrc (bashrc 다시 실행, 설치된 nvm은 .nvm 폴더에 node및 모듈등이 버젼별로 들어가게됨.)
  - nvm install --lts (안정화된 버젼설치)
- - ln -s ln -s /home/node/.nvm/versions/node/v12.18.1/bin/node /usr/local/bin/node (예 : node 계정으로 설치했다면 링크걸어줌)
+ - ln -s /home/node/.nvm/versions/node/v12.18.1/bin/node /usr/local/bin/node (예 : node 계정으로 설치했다면 링크걸어줌)
  - vi root/.bashrc (예 : node 계정으로 설치했다면 아래내용 추가)
    export NVM_DIR="/home/node/.nvm"
    [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
