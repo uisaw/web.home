@@ -111,6 +111,14 @@ window.addEventListener("load", function(event) {
 					link.click();
 					document.removeChild('a');
 				});
+			},
+			fhub: function(chk,event){
+				console.log(event);
+				if (typeof chk == "undefined") {
+					this.slnk(event);
+				}else {
+					this.sdown(event);
+				}
 			}
 		}
 	})
