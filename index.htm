@@ -34,7 +34,7 @@
 			<div v-for="itm in items" class="item" :class="{none:!itm.selected, active:itm.selected && itm_active}">
 				<div class="tit"><div class="back" @click="back"><i class="fa fa-undo"></i></div><i class="fa" :class="{ [itm.ico]:true }"></i> {{ itm.title }}</div>
 				<div class="det">
-					<a v-for="sub in itm.sub" :href="glnk(sub)" v-on:click.stop.prevent="{{ typeof sub.down==='undefined'? slnk(event) : sdown(event) }}" class="link">{{ sub.title }}</a>
+					<a v-for="sub in itm.sub" :href="glnk(sub)" v-on:click.stop.prevent="fhub(sub.down,this.event)" class="link">{{ sub.title }}</a>
 				</div>
 			</div>
 		</div>
