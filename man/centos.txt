@@ -12,6 +12,31 @@
    cd C:\Program Files\Oracle\VirtualBox
    VBoxManage startvm "centos" --type headless
 
+ - vbox hdd resize
+   VboxManage modifyhd 파일명.vdi --resize 원하는용량(mb단위)
+   fdisk -l
+   d  ( 파티션 삭제 )
+   2  ( 기존 파티션 중 부팅 디스크가 아닌 두번째 파티션 삭제. /dev/sda2 삭제 )
+   n  ( 새로운 파티션 생성 )
+   p  ( Primary 파티션 선택 )
+   2  ( 2번 파티션 지정 )
+   [엔터]  ( 실린더 처음 값 default )
+   [엔터]  ( 실린더 맨 마지막 값 default )
+   w       ( 변경사항 기록 )
+   -- 기존 데이터는 삭제 되지 않음
+
+   reboot
+
+   물리 볼륨 조절
+   pvresize /dev/sda2
+   pvscan  (반영여부 확인 )
+
+   논리 볼륨 공간 추가 (증설되어 사용가능해진 저장소 용량을 논리볼륨에 매핑한다. 이때 사용가능한 모든 용량 매핑 (100%FREE))
+   lvextend -l +100%FREE /dev/mapper/centos-root
+   논리 볼륨 조절 (수정내용 반영 )
+   lvresize -r -l +100%FREE /dev/mapper/centos-root
+
+
 + 포트관련
   PORT     STATE SERVICE
   21/tcp   open  ftp
